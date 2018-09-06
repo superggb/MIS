@@ -6,9 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import javax.annotation.Resource;
-
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -29,6 +27,10 @@ public class DepartmentDaoTest {
             System.out.println(department);
         }
 
+    }
+
+    @Test
+    public void Login(){
     }
 
 }

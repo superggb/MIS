@@ -8,4 +8,8 @@
         SELECT * FROM department
     </select>
 
+    <select id="loginIn" resultType="Department">
+        SELECT * FROM department WHERE did = "${did}" AND password = "${password}"
+    </select>
+
 </mapper>
