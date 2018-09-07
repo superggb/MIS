@@ -25,6 +25,14 @@ public interface AbsenceService {
                              int state,
                              String description);
 
+    Integer updateAbsenceRecord(int aid, int eid, Timestamp starttime, Timestamp endtime, int state, String description);
+
+    Absence addAbsenceRecordAskForLeave(int eid, Timestamp starttime, Timestamp endtime, String description);
+
+    Absence addAbsenceRecordLate(int eid, Timestamp starttime, Timestamp endtime, String description);
+
+    Absence addAbsenceRecordAbsenteeism(int eid, Timestamp starttime, Timestamp endtime, String description);
+
     /**
      * 查询did部门从第start条记录开始，缺勤的len条记录（以开始请假的时间为序）
      * @param did

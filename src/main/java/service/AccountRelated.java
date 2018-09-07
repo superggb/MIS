@@ -2,6 +2,7 @@ package service;
 
 import entity.Department;
 import entity.Employee;
+import org.springframework.transaction.annotation.Transactional;
 
 /*
 * 这个接口用于接手处理涉及到账号的业务。
@@ -35,4 +36,18 @@ public interface AccountRelated {
      * @return 登录成功则返回employee表对应行的数据（账号密码正确），为null表示账号密码不存在或者错误
      */
     Department loginDepartment(int did, String password);
+
+    @Transactional
+    Integer updateEmployeePassword(int eid, String name, String oldPassword, String newPassword);
+
+    /**
+     * 更改员工基本信息，属于员工部门流动
+     * @param eid
+     * @param kind
+     * @param oldDid
+     * @param newDid
+     * @return
+     */
+    @Transactional
+    Integer updateEmployeeInfo(int eid, int kind, int oldDid, int newDid);
 }

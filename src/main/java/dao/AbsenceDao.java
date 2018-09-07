@@ -33,4 +33,23 @@ public interface AbsenceDao {
             @Param(value = "start") int start,
             @Param(value = "len") int len
     );
+
+    /**
+     * 更新一条缺勤信息记录
+     * @param aid
+     * @param eid
+     * @param starttime
+     * @param endtime
+     * @param state
+     * @param description
+     * @return
+     */
+    Integer updateAbsenceRecord(
+            @Param("aid") int aid,
+            @Param("eid") int eid,
+            @Param("starttime") Timestamp starttime,
+            @Param("endtime") Timestamp endtime,
+            @Param("state") int state,
+            @Param("description") String description
+    );
 }

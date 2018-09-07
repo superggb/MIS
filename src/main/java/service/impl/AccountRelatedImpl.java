@@ -3,9 +3,10 @@ package service.impl;
 import dao.DepartmentDao;
 import dao.EmployeeDao;
 import dao.SalaryDao;
+import dao.TransferDao;
 import entity.Department;
 import entity.Employee;
-import entity.Salary;
+import entity.Transfer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,8 @@ public class AccountRelatedImpl implements AccountRelated {
     private EmployeeDao employeeDao;
     @Autowired
     private SalaryDao salaryDao;
+    @Autowired
+    private TransferDao transferDao;
 
     /**
      * 添加员工
@@ -38,8 +41,6 @@ public class AccountRelatedImpl implements AccountRelated {
             salaryDao.addSalaryRecord(employee.getEid(), employee.getSalary(), SALARY_STATE_DESCRIPTION);
             return employee;
     }
-
-
 
     @Override
     public Employee loginEmployee(int eid, String password) {
@@ -61,5 +62,27 @@ public class AccountRelatedImpl implements AccountRelated {
             e.printStackTrace();
             return null;
         }
+    }
+
+
+
+    /**
+     * 更改雇员密码
+     * @param eid
+     * @param newPassword
+     * @return
+     */
+    @Transactional
+    @Override
+    public Integer updateEmployeePassword(int eid, String name, String oldPassword, String newPassword){
+        return employeeDao.updateEmployeePassword(eid, name, oldPassword,newPassword);
+    }
+
+    @Override
+    @Transactional
+    public Integer updateEmployeeInfo(int eid, int kind, int oldDid, int newDid) {
+        employeeDao.updateEmployeeDid(eid, oldDid,newDid);
+        transferDao.addTransferRecord(eid, oldDid, newDid);
+        return null;
     }
 }

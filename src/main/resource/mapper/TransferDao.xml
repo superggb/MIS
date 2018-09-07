@@ -2,4 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.TransferDao"></mapper>
+<mapper namespace="dao.TransferDao">
+
+    <insert id="addTransferRecord" useGeneratedKeys="true">
+        INSERT INTO transfer(eid, old_department, new_department) VALUES (${eid}, ${old_department}, ${new_department})
+    </insert>
+</mapper>

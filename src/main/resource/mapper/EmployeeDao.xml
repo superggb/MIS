@@ -16,4 +16,13 @@
         </selectKey>
     </insert>
 
+    <update id="updateEmployeePassword" >
+        UPDATE employee SET name = "${name}",
+        password = "${newPassword}" WHERE eid = ${eid}
+        AND password = "${oldPassword}"
+    </update>
+
+    <update id="updateEmployeeDid">
+        UPDATE employee SET did = ${newDid} WHERE eid = ${eid}
+    </update>
 </mapper>

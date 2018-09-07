@@ -38,4 +38,14 @@ public class AccountRelatedImplTest {
         Employee employee = new Employee("大厦", (float) 1.1,"123456");
         accountRelated.register("大厦", "123456",(float) 1.1,11001);
     }
+
+    @Test
+    public void updateEmployeeTest(){
+        accountRelated.updateEmployeePassword(100002,"宋系三", "123456","123");
+    }
+
+    @Test
+    public void updateEmployeeInfoTest(){
+        accountRelated.updateEmployeeInfo(100002,1,11001,11003);
+    }
 }

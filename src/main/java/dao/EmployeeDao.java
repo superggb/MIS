@@ -18,4 +18,24 @@ public interface EmployeeDao {
      * @return 返回的是
      */
     Integer addEmployee(@Param(value = "add_employee") Employee employee, @Param("did") int did);
+
+    /**
+     * 更改员工密码
+     * @return
+     */
+    Integer updateEmployeePassword(@Param("eid") int eid,
+                                   @Param("name") String name,
+                                   @Param("oldPassword") String oldPassword,
+                                   @Param("newPassword") String newPassword);
+
+    /**
+     * 更改员工部门信息
+     * @param eid
+     * @param oldDid
+     * @param newDid
+     * @return
+     */
+    Integer updateEmployeeDid(@Param("eid") int eid,
+                              @Param("oldDid") int oldDid,
+                              @Param("newDid") int newDid);
 }

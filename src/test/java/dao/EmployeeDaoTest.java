@@ -18,7 +18,7 @@ public class EmployeeDaoTest {
     EmployeeDao employeeDao;
 
     @Test
-    public void Employee() {
+    public void addEmployee() {
         Employee employee = new Employee("张杰", (float) 1.1,"123456");
         employeeDao.addEmployee(employee, 11001);
 
@@ -27,5 +27,10 @@ public class EmployeeDaoTest {
         } else{
             System.out.println("Test: employee's eid is " + employee.getEid());
         }
+    }
+
+    @Test
+    public void updateEmployeePassword(){
+        employeeDao.updateEmployeePassword(100002,"宋系三", "123456","123");
     }
 }

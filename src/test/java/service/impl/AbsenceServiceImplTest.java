@@ -39,4 +39,9 @@ public class AbsenceServiceImplTest {
             System.out.println(absence);
         }
     }
+
+    @Test
+    public void testUpdate(){
+        Integer absence = absenceService.updateAbsenceRecord(1,100001, new Timestamp(new Date().getTime()),new Timestamp(new Date().getTime()),3,"sa");
+    }
 }

@@ -21,4 +21,10 @@
     <select id="selectAbsenceRecordsOrderByStartTime" resultType="entity.Absence">
         SELECT * FROM absence ORDER BY starttime DESC  LIMIT ${start}, ${len}
     </select>
+
+    <update id="updateAbsenceRecord">
+        UPDATE absence SET eid=${eid}, starttime="${starttime}",
+        endtime="${endtime}", state=${state},description="${description}"
+        WHERE aid=${aid}
+    </update>
 </mapper>
