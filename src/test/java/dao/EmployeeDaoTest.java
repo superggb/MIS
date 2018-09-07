@@ -19,11 +19,13 @@ public class EmployeeDaoTest {
 
     @Test
     public void Employee() {
-        Employee employee = employeeDao.loginIn(100001,"123456");
+        Employee employee = new Employee("张杰", (float) 1.1,"123456");
+        employeeDao.addEmployee(employee, 11001);
+
         if (null == employee){
             System.out.println("Test: no such employee!");
         } else{
-            System.out.println("Test: employee's name is " + employee.getName());
+            System.out.println("Test: employee's eid is " + employee.getEid());
         }
     }
 }

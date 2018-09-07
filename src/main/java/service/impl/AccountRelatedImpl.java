@@ -2,24 +2,44 @@ package service.impl;
 
 import dao.DepartmentDao;
 import dao.EmployeeDao;
+import dao.SalaryDao;
 import entity.Department;
 import entity.Employee;
+import entity.Salary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import service.AccountRelated;
-
 @Service
 public class AccountRelatedImpl implements AccountRelated {
 
+    private static final String SALARY_STATE_DESCRIPTION = "新增员工工资";
     @Autowired
     private DepartmentDao departmentDao;
     @Autowired
     private EmployeeDao employeeDao;
+    @Autowired
+    private SalaryDao salaryDao;
 
+    /**
+     * 添加员工
+     * @param name 员工姓名
+     * @param password 员工基本工资
+     * @param salary  员工密码（30个字符以内，限字母数字以及下划线）
+     * @param did   外键，表示部门
+     * @return
+     */
     @Override
-    public Integer register(int eid, String name, String password, float salary, int did) {
-        return null;
+    @Transactional
+    public Employee register( String name, String password, float salary, int did) {
+            Employee employee = new Employee(name, salary,password);
+            employeeDao.addEmployee(employee, 11001);
+            //还要相应的修改salary表
+            salaryDao.addSalaryRecord(employee.getEid(), employee.getSalary(), SALARY_STATE_DESCRIPTION);
+            return employee;
     }
+
+
 
     @Override
     public Employee loginEmployee(int eid, String password) {

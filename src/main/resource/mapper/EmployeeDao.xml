@@ -8,4 +8,12 @@
         SELECT * FROM employee WHERE eid = "${eid}" AND password = "${password}"
     </select>
 
+    <insert id="addEmployee" parameterType="entity.Employee">
+        INSERT INTO employee(name,salary,password,did) VALUES ("${add_employee.name}", ${add_employee.salary},
+        "${add_employee.password}",${did})
+        <selectKey order="AFTER" resultType="int" keyProperty="add_employee.eid" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
 </mapper>
