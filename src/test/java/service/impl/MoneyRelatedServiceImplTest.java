@@ -1,5 +1,6 @@
 package service.impl;
 
+import entity.Salary;
 import model.SalaryShow;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,10 +19,12 @@ public class MoneyRelatedServiceImplTest {
 
     @Test
     public void test(){
-        List<SalaryShow> salaryShows = moneyRelatedService.findSalaryOrderByDate(0,2);
+        /*List<SalaryShow> salaryShows = moneyRelatedService.findSalaryOrderByDate(0,2);
         for (SalaryShow salaryShow:
               salaryShows) {
             System.out.println(salaryShow);
-        }
+        }*/
+       // moneyRelatedService.updateSalary(100013,11100,12000,"升职加薪！");
+        moneyRelatedService.addSalaryRecord(new Salary(100007,12000.9f,"入职了"));
     }
 }

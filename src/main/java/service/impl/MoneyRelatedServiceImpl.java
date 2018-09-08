@@ -18,6 +18,18 @@ public class MoneyRelatedServiceImpl implements MoneyRelatedService {
 
     @Transactional
     @Override
+    public Integer addSalaryRecord(int eid, float salary, String description){
+        return salaryDao.addSalaryRecord(eid,salary, description);
+    }
+
+    @Transactional
+    @Override
+    public Integer addSalaryRecord(Salary salary) {
+        return addSalaryRecord(salary.getEid(), salary.getSalary(), salary.getDescription());
+    }
+
+    @Transactional
+    @Override
     public Integer updateSalary(int eid, float salary, float bonus, String description) {
         return salaryDao.updateSalary(eid, salary, bonus, description);
     }

@@ -9,6 +9,12 @@ import java.util.List;
 public interface MoneyRelatedService {
 
     @Transactional
+    Integer addSalaryRecord(int eid, float salary, String description);
+
+    @Transactional
+    Integer addSalaryRecord(Salary salary);
+
+    @Transactional
     Integer updateSalary(int eid, float salary,float bonus, String description);
 
     @Transactional

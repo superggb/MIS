@@ -6,7 +6,7 @@
     
     <update id="updateSalary">
         UPDATE salary SET salary = ${salary} , bonus = ${bonus},
-        description = "${description}" WHERE eid = ${eid}
+        description = "${description}" WHERE eid = ${eid} LIMIT 1
     </update>
 
     <insert id="addSalaryRecord" useGeneratedKeys="true">

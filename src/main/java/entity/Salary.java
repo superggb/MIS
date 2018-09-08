@@ -13,6 +13,12 @@ public class Salary {
     private Timestamp date_time;
     private String description;
 
+    public Salary(int eid, float salary, String description) {
+        this.eid = eid;
+        this.salary = salary;
+        this.description = description;
+    }
+
     public int getSid() {
         return sid;
     }
