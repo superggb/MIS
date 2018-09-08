@@ -34,12 +34,18 @@ public class AccountRelatedImpl implements AccountRelated {
      */
     @Override
     @Transactional
-    public Employee register( String name, String password, float salary, int did) {
+    public Employee register(String name, String password, float salary, int did) {
             Employee employee = new Employee(name, salary,password);
             employeeDao.addEmployee(employee, 11001);
             //还要相应的修改salary表
             salaryDao.addSalaryRecord(employee.getEid(), employee.getSalary(), SALARY_STATE_DESCRIPTION);
             return employee;
+    }
+
+    @Transactional
+    @Override
+    public Employee register(Employee employee) {
+        return register(employee.getName(), employee.getPassword(), employee.getSalary(), employee.getDepartment().getDid());
     }
 
     @Override
@@ -119,6 +125,12 @@ public class AccountRelatedImpl implements AccountRelated {
         return transferDao.updateTransferRecord(tid, eid,old_department, new_department);
     }
 
+    @Transactional
+    @Override
+    public Integer updateTransfer(Transfer transfer) {
+        return updateTransfer(transfer.getTid(), transfer.getEid(), transfer.getOld_department(), transfer.getNew_department());
+    }
+
     /**
      * 这个方法用于向部门表添加一条数据
      * @param name
@@ -127,10 +139,16 @@ public class AccountRelatedImpl implements AccountRelated {
      */
     @Transactional
     @Override
-    public Department registerDepartment(String name, String password){
+    public Department register(String name, String password){
         Department department = new Department(name, password);
         departmentDao.registerDepartment(department);
         return department;
+    }
+
+    @Transactional
+    @Override
+    public Department register(Department department) {
+        return register(department.getName(), department.getPassword());
     }
 
     /**
@@ -145,7 +163,7 @@ public class AccountRelatedImpl implements AccountRelated {
     }
 
     /**
-     * 更新一个部门的部门信息,非对象化模式
+     * 更新一个部门记录的部门信息,非对象化模式
      * @param did
      * @param newName
      * @param newPassword

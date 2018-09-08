@@ -1,6 +1,7 @@
 package service.impl;
 
 import dao.SalaryDao;
+import entity.Salary;
 import model.SalaryShow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,12 +14,18 @@ import java.util.List;
 public class MoneyRelatedServiceImpl implements MoneyRelatedService {
 
     @Autowired
-    SalaryDao salaryDao;
+    SalaryDao salaryDao;    //注意，虽然employee表里也有工资这个项，但是这里不用更改，为了保持程序在web意义上的逻辑第三范式，我在数据库里加了个触发器，使得salary与employee两个表中的salary保持一致
 
     @Transactional
     @Override
     public Integer updateSalary(int eid, float salary, float bonus, String description) {
         return salaryDao.updateSalary(eid, salary, bonus, description);
+    }
+
+    @Transactional
+    @Override
+    public Integer updateSalary(Salary salary) {
+        return updateSalary(salary.getEid(),salary.getSalary(), salary.getBonus(), salary.getDescription());
     }
 
     /**

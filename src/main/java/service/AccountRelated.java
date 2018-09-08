@@ -2,6 +2,7 @@ package service;
 
 import entity.Department;
 import entity.Employee;
+import entity.Transfer;
 import org.springframework.transaction.annotation.Transactional;
 
 /*
@@ -19,7 +20,11 @@ public interface AccountRelated {
      * @return 1代表插入成功，2代表账号已被注册，3代表输入的数据不满足数据库要求
      * 注意：数据库设计人员除外键约束外并未在数据库内考虑以上所有限制因素，请编码人员注意。
      */
+    @Transactional
     Employee register(String name, String password, float salary, int did);
+
+    @Transactional
+    Employee register(Employee employee);
 
     /**
      * 这个方法用于处理普通员工的登录认证工作
@@ -27,6 +32,7 @@ public interface AccountRelated {
      * @param password 员工密码
      * @return 登录成功则返回employee表对应行的数据（账号密码正确），为null表示账号密码不存在或者错误
      */
+    @Transactional
     Employee loginEmployee(int eid, String password);
 
     /**
@@ -35,6 +41,7 @@ public interface AccountRelated {
      * @param password  密码
      * @return 登录成功则返回employee表对应行的数据（账号密码正确），为null表示账号密码不存在或者错误
      */
+    @Transactional
     Department loginDepartment(int did, String password);
 
     @Transactional
@@ -51,11 +58,20 @@ public interface AccountRelated {
     @Transactional
     Integer updateEmployeeInfo(int eid, int kind, int oldDid, int newDid);
 
+    @Transactional
     Integer deleteEmployee(int eid);
 
+    @Transactional
     Integer updateTransfer(int tid, int eid, int old_department, int new_department);
 
-    Department registerDepartment(String name, String password);
+    @Transactional
+    Integer updateTransfer(Transfer transfer);
+
+    @Transactional
+    Department register(String name, String password);
+
+    @Transactional
+    Department register(Department department);
 
     @Transactional
     Integer deleteDepartment(int did);

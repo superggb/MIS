@@ -33,14 +33,34 @@ public class AbsenceServiceImpl implements AbsenceService {
     public Absence addAbsenceRecord(int eid, Timestamp starttime, Timestamp endtime, int state, String description) {
         Absence absence = new Absence(eid,starttime,endtime,description);
         absence.setState(state);
+        addAbsenceRecord(absence);
+        return absence;
+    }
+
+    /**
+     * 上面方法的面向对象化接口
+     * @param absence
+     * @return
+     */
+    @Transactional
+    @Override
+    public Absence addAbsenceRecord(Absence absence){
         absenceDao.addAbsenceRecord(absence);
         return absence;
     }
 
+    @Transactional
     @Override
     public Integer updateAbsenceRecord(int aid, int eid, Timestamp starttime, Timestamp endtime, int state, String description){
         return absenceDao.updateAbsenceRecord(aid, eid, starttime, endtime, state, description);
     }
+
+    @Transactional
+    @Override
+    public Integer updateAbsenceRecord(Absence absence){
+        return updateAbsenceRecord(absence.getAid(),absence.getEid(),absence.getStarttime(),absence.getEndtime(), absence.getState(), absence.getDescription());
+    }
+
     /**
      * 用于添加请假原因的缺勤记录
      * @param eid
@@ -49,9 +69,16 @@ public class AbsenceServiceImpl implements AbsenceService {
      * @param description
      * @return
      */
+    @Transactional
     @Override
     public Absence addAbsenceRecordAskForLeave(int eid, Timestamp starttime, Timestamp endtime, String description) {
         return addAbsenceRecord(eid, starttime, endtime, ASK_FOR_LEAVE, description);
+    }
+
+    @Transactional
+    @Override
+    public Absence addAbsenceRecordAskForLeave(Absence absence){
+        return addAbsenceRecordAskForLeave(absence.getEid(), absence.getStarttime(), absence.getEndtime(), absence.getDescription());
     }
 
     /**
@@ -62,9 +89,16 @@ public class AbsenceServiceImpl implements AbsenceService {
      * @param description
      * @return
      */
+    @Transactional
     @Override
     public Absence addAbsenceRecordLate(int eid, Timestamp starttime, Timestamp endtime, String description) {
         return addAbsenceRecord(eid, starttime, endtime, LATE, description);
+    }
+
+    @Transactional
+    @Override
+    public Absence addAbsenceRecordLate(Absence absence) {
+        return addAbsenceRecordLate(absence.getEid(), absence.getStarttime(), absence.getEndtime(), absence.getDescription());
     }
 
     /**
@@ -75,23 +109,28 @@ public class AbsenceServiceImpl implements AbsenceService {
      * @param description
      * @return
      */
+    @Transactional
     @Override
     public Absence addAbsenceRecordAbsenteeism(int eid,Timestamp starttime, Timestamp endtime, String description) {
         return addAbsenceRecord(eid, starttime, endtime, ABSENTEEISM, description);
     }
 
+    @Transactional
+    @Override
+    public Absence addAbsenceRecordAbsenteeism(Absence absence) {
+        return  addAbsenceRecordAbsenteeism(absence.getEid(), absence.getStarttime(), absence.getEndtime(), absence.getDescription());
+    }
+
+    @Transactional
     @Override
     public List<Absence> selectAbsenceRecords(int did, int start, int len) {
         return absenceDao.selectAbsenceRecordsByDidOrderByStartTime(did, start, len);
     }
 
-
+    @Transactional
     @Override
     public List<Absence> selectAbsenceRecords(int start, int len) {
         return absenceDao.selectAbsenceRecordsOrderByStartTime(start, len);
     }
-
-
-
 
 }

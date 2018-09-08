@@ -61,7 +61,7 @@ public class AccountRelatedImplTest {
 
     @Test
     public void registerDepartment() {
-        accountRelated.registerDepartment("体育学院", "123456");
+        accountRelated.register("体育学院", "123456");
     }
 
     @Test
