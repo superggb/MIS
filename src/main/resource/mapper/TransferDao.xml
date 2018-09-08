@@ -7,4 +7,13 @@
     <insert id="addTransferRecord" useGeneratedKeys="true">
         INSERT INTO transfer(eid, old_department, new_department) VALUES (${eid}, ${old_department}, ${new_department})
     </insert>
+
+    <update id="updateTransferRecord">
+        UPDATE transfer SET eid = ${eid}, old_department = ${old_department}, new_department = ${new_department} WHERE tid = ${tid}
+    </update>
+
+    <select id="selectTransferOrderByTime" resultType="entity.Transfer">
+        SELECT * FROM transfer ORDER BY date_time DESC LIMIT ${start},${len}
+    </select>
+
 </mapper>

@@ -38,4 +38,13 @@ public interface EmployeeDao {
     Integer updateEmployeeDid(@Param("eid") int eid,
                               @Param("oldDid") int oldDid,
                               @Param("newDid") int newDid);
+
+    /**
+     * 删除一个员工
+     * @param eid
+     * @return
+     */
+    Integer deleteEmployee(
+            @Param("eid") int eid
+    );
 }

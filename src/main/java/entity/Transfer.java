@@ -9,6 +9,10 @@ public class Transfer {
     private int new_department;
     private Timestamp date_time;
 
+    private static final String KIND_TRANSFER_DISMISS = "辞退";
+    private static final String KIND_TRANSFER_MOBILIZE = "调动";
+    private static final String KIND_TRANSFER_RETIRE = "退休";
+
     public int getTid() {
         return tid;
     }

@@ -5,6 +5,21 @@ public class Department {
     private String name;
     private String password;
 
+    public Department(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
+
+    public Department() {
+
+    }
+
+    public Department(int did, String name, String password) {
+        this.did = did;
+        this.name = name;
+        this.password = password;
+    }
+
     public int getDid() {
         return did;
     }

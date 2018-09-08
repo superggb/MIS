@@ -19,4 +19,31 @@ public interface DepartmentDao {
      * @return
      */
     Department loginIn(@Param(value = "did") int did, @Param(value = "password") String password);
+
+    /**
+     * 添加部门账号，注意在调用此方法后，参数中的did已经有值了
+     * @param department
+     * @return
+     */
+    Integer registerDepartment(
+            @Param("department") Department department
+    );
+
+    /**
+     * 删除部门账号
+     * @param did
+     * @return
+     */
+    Integer deleteDepartment(
+            @Param("did") int did
+    );
+
+    /**
+     * 更新部门账号，根据其中的did
+     * @param department
+     * @return
+     */
+    Integer updateDepartment(
+            @Param("department")Department department
+    );
 }

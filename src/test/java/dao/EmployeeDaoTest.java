@@ -33,4 +33,9 @@ public class EmployeeDaoTest {
     public void updateEmployeePassword(){
         employeeDao.updateEmployeePassword(100002,"宋系三", "123456","123");
     }
+
+    @Test
+    public void deleteEmployeeTest(){
+        employeeDao.deleteEmployee(100001);
+    }
 }

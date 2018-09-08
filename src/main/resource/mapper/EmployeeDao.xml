@@ -25,4 +25,8 @@
     <update id="updateEmployeeDid">
         UPDATE employee SET did = ${newDid} WHERE eid = ${eid}
     </update>
+
+    <delete id="deleteEmployee">
+        DELETE FROM employee WHERE eid=${eid}
+    </delete>
 </mapper>

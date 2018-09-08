@@ -78,6 +78,14 @@ public class AccountRelatedImpl implements AccountRelated {
         return employeeDao.updateEmployeePassword(eid, name, oldPassword,newPassword);
     }
 
+    /**
+     * 员工调度信息的修改
+     * @param eid
+     * @param kind
+     * @param oldDid
+     * @param newDid
+     * @return
+     */
     @Override
     @Transactional
     public Integer updateEmployeeInfo(int eid, int kind, int oldDid, int newDid) {
@@ -85,4 +93,68 @@ public class AccountRelatedImpl implements AccountRelated {
         transferDao.addTransferRecord(eid, oldDid, newDid);
         return null;
     }
+
+    /**
+     * 对员工信息的删除
+     * @param eid
+     * @return
+     */
+    @Override
+    @Transactional
+    public Integer deleteEmployee(int eid){
+        return employeeDao.deleteEmployee(eid);
+    }
+
+    /**
+     * 更新员工调度信息
+     * @param tid
+     * @param eid
+     * @param old_department
+     * @param new_department
+     * @return
+     */
+    @Override
+    @Transactional
+    public Integer updateTransfer(int tid, int eid, int old_department, int new_department){
+        return transferDao.updateTransferRecord(tid, eid,old_department, new_department);
+    }
+
+    /**
+     * 这个方法用于向部门表添加一条数据
+     * @param name
+     * @param password
+     * @return
+     */
+    @Transactional
+    @Override
+    public Department registerDepartment(String name, String password){
+        Department department = new Department(name, password);
+        departmentDao.registerDepartment(department);
+        return department;
+    }
+
+    /**
+     * 删除一条部门账号记录信息
+     * @param did
+     * @return
+     */
+    @Transactional
+    @Override
+    public Integer deleteDepartment(int did){
+        return departmentDao.deleteDepartment(did);
+    }
+
+    /**
+     * 更新一个部门的部门信息,非对象化模式
+     * @param did
+     * @param newName
+     * @param newPassword
+     * @return
+     */
+    @Transactional
+    @Override
+    public Integer updateDepartment(int did, String newName, String newPassword){
+        return departmentDao.updateDepartment(new Department(did, newName, newPassword));
+    }
+
 }

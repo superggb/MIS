@@ -1,6 +1,11 @@
 package dao;
 
+import entity.Salary;
+import model.SalaryShow;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.jmx.export.annotation.ManagedOperationParameter;
+
+import java.util.List;
 
 public interface SalaryDao {
 
@@ -19,9 +24,40 @@ public interface SalaryDao {
             @Param(value = "description") String description
     );
 
+    /**
+     * 增加员工工资信息记录
+     * @param eid
+     * @param salary
+     * @param description
+     * @return
+     */
     Integer addSalaryRecord(
            @Param(value = "eid") int eid,
            @Param(value = "salary") float salary,
            @Param(value = "description") String description
+    );
+
+    /**
+     * 搜索按照时间顺序，搜索某一员工的从第start条记录开始的len条记录
+     * @param eid
+     * @param start
+     * @param len
+     * @return
+     */
+    List<SalaryShow> findSalaryByEidOrderByDate(
+            @Param("eid") int eid,
+            @Param("start") int start,
+            @Param("len") int len
+    );
+
+    /**
+     * 搜索按照时间顺序，搜索所有员工的从第start条记录开始的len条记录
+     * @param start
+     * @param len
+     * @return
+     */
+    List<SalaryShow> findSalaryOrderByDate(
+            @Param("start") int start,
+            @Param("len") int len
     );
 }

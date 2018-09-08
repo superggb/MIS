@@ -50,4 +50,16 @@ public interface AccountRelated {
      */
     @Transactional
     Integer updateEmployeeInfo(int eid, int kind, int oldDid, int newDid);
+
+    Integer deleteEmployee(int eid);
+
+    Integer updateTransfer(int tid, int eid, int old_department, int new_department);
+
+    Department registerDepartment(String name, String password);
+
+    @Transactional
+    Integer deleteDepartment(int did);
+
+    @Transactional
+    Integer updateDepartment(int did, String newName, String newPassword);
 }

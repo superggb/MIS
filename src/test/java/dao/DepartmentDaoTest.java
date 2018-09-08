@@ -33,4 +33,23 @@ public class DepartmentDaoTest {
     public void Login(){
     }
 
+    @Test
+    public void registerDepartment(){
+        Department department = new Department();
+        department.setName("体育学院");
+        department.setPassword("123");
+        departmentDao.registerDepartment(department);
+        System.out.println(department.getDid());
+    }
+
+    @Test
+    public void deleteDepartmentTest(){
+        departmentDao.deleteDepartment(11015);
+    }
+
+    @Test
+    public void updateDepartmentTest(){
+        departmentDao.updateDepartment(new Department(11001,"外语学院", "123"));
+    }
+
 }

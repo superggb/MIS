@@ -48,4 +48,29 @@ public class AccountRelatedImplTest {
     public void updateEmployeeInfoTest(){
         accountRelated.updateEmployeeInfo(100002,1,11001,11003);
     }
+
+    @Test
+    public void deleteEmployeeTest(){
+        accountRelated.deleteEmployee(100002);
+    }
+
+    @Test
+    public void updateTransferTest(){
+        accountRelated.updateTransfer(4,100003,11004,11005);
+    }
+
+    @Test
+    public void registerDepartment() {
+        accountRelated.registerDepartment("体育学院", "123456");
+    }
+
+    @Test
+    public void deleteDepartment() {
+        accountRelated.deleteDepartment(11013);
+    }
+
+    @Test
+    public void updateDepartment() {
+        accountRelated.updateDepartment(11001, "信息工程学院", "zhangjie");
+    }
 }

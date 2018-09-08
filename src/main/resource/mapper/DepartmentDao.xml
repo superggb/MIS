@@ -12,4 +12,18 @@
         SELECT * FROM department WHERE did = "${did}" AND password = "${password}"
     </select>
 
+    <insert id="registerDepartment" useGeneratedKeys="true" parameterType="entity.Department">
+        INSERT INTO department(name, password) VALUES ("${department.name}", "${department.password}")
+        <selectKey order="AFTER" resultType="int" keyProperty="department.did" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <delete id="deleteDepartment" >
+        DELETE FROM department WHERE did = ${did}
+    </delete>
+
+    <update id="updateDepartment">
+        UPDATE department SET name = "${department.name}", password = "${department.password}" WHERE did = ${department.did}
+    </update>
 </mapper>
