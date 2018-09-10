@@ -7,6 +7,22 @@ public class Employee {
     private String password;
     private Department department;
 
+    public Employee() {
+    }
+
+    public Employee(String name, float salary, String password, Department department) {
+        this.name = name;
+        this.salary = salary;
+        this.password = password;
+        this.department = department;
+    }
+
+    public Employee(String name, float salary, String password) {
+        this.name = name;
+        this.salary = salary;
+        this.password = password;
+    }
+
     public int getEid() {
         return eid;
     }
