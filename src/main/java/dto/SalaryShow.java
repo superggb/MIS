@@ -6,6 +6,7 @@ import java.sql.Timestamp;
  * 这个类主要是用于展示员工个人工资的
  */
 public class SalaryShow {
+    private int sid;
     private String name;
     private int eid;
     private Timestamp date;
@@ -82,10 +83,19 @@ public class SalaryShow {
         this.eid = eid;
     }
 
+    public int getSid() {
+        return sid;
+    }
+
+    public void setSid(int sid) {
+        this.sid = sid;
+    }
+
     @Override
     public String toString() {
         return "SalaryShow{" +
-                "name='" + name + '\'' +
+                "sid=" + sid +
+                ", name='" + name + '\'' +
                 ", eid=" + eid +
                 ", date=" + date +
                 ", salary=" + salary +

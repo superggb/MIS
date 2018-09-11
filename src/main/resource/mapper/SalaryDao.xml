@@ -19,7 +19,7 @@
     </select>
 
     <select id="findSalaryOrderByDate" resultType="dto.SalaryShow">
-        SELECT employee.eid,`name`, `date`,salary.salary,fine,bonus,tax,realsalary FROM employee, salary
+        SELECT salary.sid, employee.eid,`name`, `date`,salary.salary,fine,bonus,tax,realsalary FROM employee, salary WHERE employee.eid = salary.eid
         ORDER BY salary.date DESC LIMIT ${start}, ${len}
     </select>
 </mapper>
