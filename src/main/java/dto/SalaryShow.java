@@ -7,6 +7,7 @@ import java.sql.Timestamp;
  */
 public class SalaryShow {
     private String name;
+    private int eid;
     private Timestamp date;
     private float salary;
     private float fine;
@@ -73,10 +74,19 @@ public class SalaryShow {
         this.realsalary = realsalary;
     }
 
+    public int getEid() {
+        return eid;
+    }
+
+    public void setEid(int eid) {
+        this.eid = eid;
+    }
+
     @Override
     public String toString() {
         return "SalaryShow{" +
                 "name='" + name + '\'' +
+                ", eid=" + eid +
                 ", date=" + date +
                 ", salary=" + salary +
                 ", fine=" + fine +
