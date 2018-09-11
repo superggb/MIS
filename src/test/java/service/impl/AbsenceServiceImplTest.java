@@ -1,5 +1,6 @@
 package service.impl;
 
+import dto.AbsenceInfo;
 import entity.Absence;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,15 +27,15 @@ public class AbsenceServiceImplTest {
 
     @Test
     public void testSelect() {
-        List<Absence> absences = absenceService.selectAbsenceRecords(0,10);
-        for (Absence absence :
+        List<AbsenceInfo> absences = absenceService.selectAbsenceRecords(0,10);
+        for (AbsenceInfo absence :
                 absences) {
             System.out.println(absence);
         }
 
 
-        absences = absenceService.selectAbsenceRecords(11001,0,10);
-        for (Absence absence :
+        absences = absenceService.selectAbsenceRecords(11003,0,10);
+        for (AbsenceInfo absence :
                 absences) {
             System.out.println(absence);
         }

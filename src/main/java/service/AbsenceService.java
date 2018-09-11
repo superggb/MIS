@@ -1,5 +1,6 @@
 package service;
 
+import dto.AbsenceInfo;
 import entity.Absence;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,7 +76,7 @@ public interface AbsenceService {
      * @return
      */
     @Transactional
-    List<Absence> selectAbsenceRecords(int did, int start, int len);
+    List<AbsenceInfo> selectAbsenceRecords(int did, int start, int len);
 
     /**
      * 查询所有部门从第start条记录开始，缺勤的len条记录（以开始请假的时间为序）
@@ -84,5 +85,5 @@ public interface AbsenceService {
      * @return
      */
     @Transactional
-    List<Absence> selectAbsenceRecords(int start, int len);
+    List<AbsenceInfo> selectAbsenceRecords(int start, int len);
 }

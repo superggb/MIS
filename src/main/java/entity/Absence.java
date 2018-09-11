@@ -10,6 +10,9 @@ public class Absence {
     private int state;
     private String description;
 
+    public Absence() {
+    }
+
     public Absence(int eid, Timestamp starttime, Timestamp endtime, String description) {
         this.eid = eid;
         this.starttime = starttime;

@@ -1,6 +1,8 @@
 package service.impl;
 
 import dao.AbsenceDao;
+import dao.EmployeeDao;
+import dto.AbsenceInfo;
 import entity.Absence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import service.AbsenceService;
 import util.ErwinSmithTime;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,8 +20,11 @@ public class AbsenceServiceImpl implements AbsenceService {
     private static final int ASK_FOR_LEAVE = 0; //病名为请假
     private static final int LATE = 1;  //病名为迟到
     private static final int ABSENTEEISM = 2;   //病名为旷工
+
     @Autowired
     AbsenceDao absenceDao;
+    @Autowired
+    EmployeeDao employeeDao;
 
     /**
      * 这个方法插入记录
@@ -152,14 +158,30 @@ public class AbsenceServiceImpl implements AbsenceService {
 
     @Transactional
     @Override
-    public List<Absence> selectAbsenceRecords(int did, int start, int len) {
-        return absenceDao.selectAbsenceRecordsByDidOrderByStartTime(did, start, len);
+    public List<AbsenceInfo> selectAbsenceRecords(int did, int start, int len) {
+        List<Absence> absences = absenceDao.selectAbsenceRecordsByDidOrderByStartTime(did, start, len);
+        List<AbsenceInfo> absenceInfos = new ArrayList<>();
+        for (Absence absence :
+                absences) {
+            AbsenceInfo absenceInfo = new AbsenceInfo(absence);
+            absenceInfo.setName(employeeDao.findNameByEid(absenceInfo.getEid()));
+            absenceInfos.add(absenceInfo);
+        }
+        return absenceInfos;
     }
 
     @Transactional
     @Override
-    public List<Absence> selectAbsenceRecords(int start, int len) {
-        return absenceDao.selectAbsenceRecordsOrderByStartTime(start, len);
+    public List<AbsenceInfo> selectAbsenceRecords(int start, int len) {
+        List<Absence> absences = absenceDao.selectAbsenceRecordsOrderByStartTime(start, len);
+        List<AbsenceInfo> absenceInfos = new ArrayList<>();
+        for (Absence absence :
+                absences) {
+            AbsenceInfo absenceInfo = new AbsenceInfo(absence);
+            absenceInfo.setName(employeeDao.findNameByEid(absenceInfo.getEid()));
+            absenceInfos.add(absenceInfo);
+        }
+        return absenceInfos;
     }
 
 }

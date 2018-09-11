@@ -47,4 +47,8 @@ public interface EmployeeDao {
     Integer deleteEmployee(
             @Param("eid") int eid
     );
+
+    String findNameByEid(
+            @Param("eid") int eid
+    );
 }

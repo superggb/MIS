@@ -193,7 +193,9 @@ public class AccountRelatedImpl implements AccountRelated {
         List<TransferInfo> transferInfos = new ArrayList<>();
         for (Transfer transfer:
              transfers) {
-            transferInfos.add(new TransferInfo(transfer));
+            TransferInfo transferInfo = new TransferInfo(transfer);
+            transferInfo.setName(employeeDao.findNameByEid(transferInfo.getEid()));
+            transferInfos.add(transferInfo);
         }
         return transferInfos;
     }
