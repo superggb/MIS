@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import service.AbsenceService;
+import util.ErwinSmithTime;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -37,6 +38,10 @@ public class AbsenceServiceImpl implements AbsenceService {
         return absence;
     }
 
+    public Absence addAbsenceRecord(int eid, Timestamp starttime, int length, int state, String description){
+        return addAbsenceRecord(eid, starttime, ErwinSmithTime.computeEndTime(starttime, length), state, description);
+    }
+
     /**
      * 上面方法的面向对象化接口
      * @param absence
@@ -53,6 +58,12 @@ public class AbsenceServiceImpl implements AbsenceService {
     @Override
     public Integer updateAbsenceRecord(int aid, int eid, Timestamp starttime, Timestamp endtime, int state, String description){
         return absenceDao.updateAbsenceRecord(aid, eid, starttime, endtime, state, description);
+    }
+
+    @Transactional
+    @Override
+    public Integer updateAbsenceRecord(int aid, int eid, Timestamp starttime, int length, int state, String description){
+        return absenceDao.updateAbsenceRecord(aid, eid, starttime, ErwinSmithTime.computeEndTime(starttime,length), state, description);
     }
 
     @Transactional
@@ -77,6 +88,12 @@ public class AbsenceServiceImpl implements AbsenceService {
 
     @Transactional
     @Override
+    public Absence addAbsenceRecordAskForLeave(int eid, Timestamp starttime, int length, String description) {
+        return addAbsenceRecord(eid, starttime, ErwinSmithTime.computeEndTime(starttime, length), ASK_FOR_LEAVE, description);
+    }
+
+    @Transactional
+    @Override
     public Absence addAbsenceRecordAskForLeave(Absence absence){
         return addAbsenceRecordAskForLeave(absence.getEid(), absence.getStarttime(), absence.getEndtime(), absence.getDescription());
     }
@@ -97,6 +114,12 @@ public class AbsenceServiceImpl implements AbsenceService {
 
     @Transactional
     @Override
+    public Absence addAbsenceRecordLate(int eid, Timestamp starttime, int length, String description) {
+        return addAbsenceRecord(eid, starttime, ErwinSmithTime.computeEndTime(starttime, length), LATE, description);
+    }
+
+    @Transactional
+    @Override
     public Absence addAbsenceRecordLate(Absence absence) {
         return addAbsenceRecordLate(absence.getEid(), absence.getStarttime(), absence.getEndtime(), absence.getDescription());
     }
@@ -113,6 +136,12 @@ public class AbsenceServiceImpl implements AbsenceService {
     @Override
     public Absence addAbsenceRecordAbsenteeism(int eid,Timestamp starttime, Timestamp endtime, String description) {
         return addAbsenceRecord(eid, starttime, endtime, ABSENTEEISM, description);
+    }
+
+    @Transactional
+    @Override
+    public Absence addAbsenceRecordAbsenteeism(int eid,Timestamp starttime, int len, String description) {
+        return addAbsenceRecord(eid, starttime, ErwinSmithTime.computeEndTime(starttime, len), ABSENTEEISM, description);
     }
 
     @Transactional

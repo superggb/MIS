@@ -21,7 +21,7 @@ public class DepartmentDaoTest {
 
     @Test
     public void selectAll() throws Exception {
-        List<Department> departments=departmentDao.selectAll();
+        List<Department> departments=departmentDao.selectAll(0, 10);
         for (Department department:departments
              ) {
             System.out.println(department);

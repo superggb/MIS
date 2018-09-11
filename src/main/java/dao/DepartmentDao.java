@@ -10,7 +10,10 @@ public interface DepartmentDao {
      * 查询所有部门信息
      * @return
      */
-    List<Department> selectAll();
+    List<Department> selectAll(
+            @Param("start") int start,
+            @Param("len") int len
+    );
 
     /**
      * 这是用于处理验证服务的SQL服务

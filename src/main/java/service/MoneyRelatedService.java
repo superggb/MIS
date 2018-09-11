@@ -1,7 +1,7 @@
 package service;
 
 import entity.Salary;
-import model.SalaryShow;
+import dto.SalaryShow;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

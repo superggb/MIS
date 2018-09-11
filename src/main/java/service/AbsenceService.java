@@ -35,10 +35,16 @@ public interface AbsenceService {
     Integer updateAbsenceRecord(int aid, int eid, Timestamp starttime, Timestamp endtime, int state, String description);
 
     @Transactional
+    Integer updateAbsenceRecord(int aid, int eid, Timestamp starttime, int length, int state, String description);
+
+    @Transactional
     Integer updateAbsenceRecord(Absence absence);
 
     @Transactional
     Absence addAbsenceRecordAskForLeave(int eid, Timestamp starttime, Timestamp endtime, String description);
+
+    @Transactional
+    Absence addAbsenceRecordAskForLeave(int eid, Timestamp starttime, int length, String description);
 
     @Transactional
     Absence addAbsenceRecordAskForLeave(Absence absence);
@@ -47,10 +53,16 @@ public interface AbsenceService {
     Absence addAbsenceRecordLate(int eid, Timestamp starttime, Timestamp endtime, String description);
 
     @Transactional
+    Absence addAbsenceRecordLate(int eid, Timestamp starttime, int length, String description);
+
+    @Transactional
     Absence addAbsenceRecordLate(Absence absence);
 
     @Transactional
     Absence addAbsenceRecordAbsenteeism(int eid, Timestamp starttime, Timestamp endtime, String description);
+
+    @Transactional
+    Absence addAbsenceRecordAbsenteeism(int eid, Timestamp starttime, int len, String description);
 
     @Transactional
     Absence addAbsenceRecordAbsenteeism(Absence absence);

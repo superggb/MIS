@@ -9,9 +9,16 @@ public class Transfer {
     private int new_department;
     private Timestamp date_time;
 
-    private static final String KIND_TRANSFER_DISMISS = "辞退";
-    private static final String KIND_TRANSFER_MOBILIZE = "调动";
-    private static final String KIND_TRANSFER_RETIRE = "退休";
+    public Transfer() {
+    }
+
+    public Transfer(int tid, int eid, int old_department, int new_department, Timestamp date_time) {
+        this.tid = tid;
+        this.eid = eid;
+        this.old_department = old_department;
+        this.new_department = new_department;
+        this.date_time = date_time;
+    }
 
     public int getTid() {
         return tid;
