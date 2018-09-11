@@ -52,4 +52,5 @@ public interface AbsenceDao {
             @Param("state") int state,
             @Param("description") String description
     );
+
 }

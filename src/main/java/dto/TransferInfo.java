@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 
 public class TransferInfo extends Transfer {
     private String transferInfo;
+    private String name;
     private static final String KIND_TRANSFER_DISMISS = "辞退";
     private static final String KIND_TRANSFER_MOBILIZE = "调动";
     private static final String KIND_TRANSFER_RETIRE = "退休";
@@ -54,10 +55,19 @@ public class TransferInfo extends Transfer {
         this.transferInfo = transferInfo;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return super.toString() + "TransferInfo{" +
                 "transferInfo='" + transferInfo + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

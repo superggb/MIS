@@ -82,7 +82,7 @@ public class AccountRelatedImplTest {
         List<TransferInfo> transferInfos = accountRelated.findTransferInfoOrderByDate(0,10);
         for (TransferInfo transferInfo:
              transferInfos) {
-            System.out.println(transferInfo);
+            System.out.println(transferInfo.getName());
         }
     }
 
