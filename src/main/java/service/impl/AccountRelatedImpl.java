@@ -4,6 +4,7 @@ import dao.DepartmentDao;
 import dao.EmployeeDao;
 import dao.SalaryDao;
 import dao.TransferDao;
+import dto.TransferInfo;
 import entity.Department;
 import entity.Employee;
 import entity.Transfer;
@@ -11,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import service.AccountRelated;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class AccountRelatedImpl implements AccountRelated {
 
@@ -175,4 +180,33 @@ public class AccountRelatedImpl implements AccountRelated {
         return departmentDao.updateDepartment(new Department(did, newName, newPassword));
     }
 
+    /**
+     * 记录员工调度信息
+     * @param start
+     * @param len
+     * @return
+     */
+    @Transactional
+    @Override
+    public List<TransferInfo> findTransferInfoOrderByDate(int start, int len){
+        List<Transfer> transfers = transferDao.selectTransferOrderByTime(start, len);
+        List<TransferInfo> transferInfos = new ArrayList<>();
+        for (Transfer transfer:
+             transfers) {
+            transferInfos.add(new TransferInfo(transfer));
+        }
+        return transferInfos;
+    }
+
+    /**
+     * 查找从第start条记录开始，到第start+len条的所有记录
+     * @param start
+     * @param len
+     * @return
+     */
+    @Transactional
+    @Override
+    public List<Department> findDepartment(int start, int len){
+        return departmentDao.selectAll(start, len);
+    }
 }

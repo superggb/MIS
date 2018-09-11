@@ -2,7 +2,7 @@ package service.impl;
 
 import dao.SalaryDao;
 import entity.Salary;
-import model.SalaryShow;
+import dto.SalaryShow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,9 +1,12 @@
 package service;
 
+import dto.TransferInfo;
 import entity.Department;
 import entity.Employee;
 import entity.Transfer;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /*
 * 这个接口用于接手处理涉及到账号的业务。
@@ -78,4 +81,9 @@ public interface AccountRelated {
 
     @Transactional
     Integer updateDepartment(int did, String newName, String newPassword);
+
+    List<TransferInfo> findTransferInfoOrderByDate(int start, int len);
+
+    @Transactional
+    List<Department> findDepartment(int start, int len);
 }

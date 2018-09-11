@@ -5,7 +5,7 @@
 <mapper namespace="dao.DepartmentDao">
 
     <select id="selectAll" resultType="Department">
-        SELECT * FROM department
+        SELECT * FROM department ORDER BY did LIMIT ${start}, ${len}
     </select>
 
     <select id="loginIn" resultType="Department">

@@ -1,9 +1,7 @@
 package dao;
 
-import entity.Salary;
-import model.SalaryShow;
+import dto.SalaryShow;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.jmx.export.annotation.ManagedOperationParameter;
 
 import java.util.List;
 

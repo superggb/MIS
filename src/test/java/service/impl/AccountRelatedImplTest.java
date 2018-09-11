@@ -1,5 +1,6 @@
 package service.impl;
 
+import dto.TransferInfo;
 import entity.Department;
 import entity.Employee;
 import org.junit.Test;
@@ -7,6 +8,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-*.xml"})
@@ -72,5 +75,23 @@ public class AccountRelatedImplTest {
     @Test
     public void updateDepartment() {
         accountRelated.updateDepartment(11001, "信息工程学院", "zhangjie");
+    }
+
+    @Test
+    public void findTransferTest(){
+        List<TransferInfo> transferInfos = accountRelated.findTransferInfoOrderByDate(0,10);
+        for (TransferInfo transferInfo:
+             transferInfos) {
+            System.out.println(transferInfo);
+        }
+    }
+
+    @Test
+    public void findDepartment(){
+        List<Department> departments = accountRelated.findDepartment(0,20);
+        for (Department department :
+                departments) {
+            System.out.println(department);
+        }
     }
 }
