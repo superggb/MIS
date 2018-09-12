@@ -88,4 +88,7 @@ public interface AccountRelated {
     List<Department> findDepartment(int start, int len);
 
     Employee findEmployeeByEid(int eid);
+
+    @Transactional
+    Integer addTransferRecord(int eid, int old_department, int new_department);
 }

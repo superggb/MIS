@@ -218,4 +218,9 @@ public class AccountRelatedImpl implements AccountRelated {
         return employeeDao.findEmployeeByEid(eid);
     }
 
+    @Transactional
+    @Override
+    public Integer addTransferRecord(int eid, int old_department, int new_department){
+        return transferDao.addTransferRecord(eid, old_department, new_department);
+    }
 }
