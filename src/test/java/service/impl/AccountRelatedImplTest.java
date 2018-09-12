@@ -100,4 +100,10 @@ public class AccountRelatedImplTest {
         Employee employee = accountRelated.findEmployeeByEid(100003);
         System.out.println(employee);
     }
+
+    @Test
+    public void addTransferRecordTest(){
+        accountRelated.addTransferRecord(100003,-1,2);
+    }
+
 }
