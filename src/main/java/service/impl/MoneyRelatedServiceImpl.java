@@ -64,4 +64,6 @@ public class MoneyRelatedServiceImpl implements MoneyRelatedService {
     public List<SalaryShow> findSalaryOrderByDate(int start, int len) {
         return salaryDao.findSalaryOrderByDate(start, len);
     }
+
+
 }

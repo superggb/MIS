@@ -86,4 +86,6 @@ public interface AccountRelated {
 
     @Transactional
     List<Department> findDepartment(int start, int len);
+
+    Employee findEmployeeByEid(int eid);
 }

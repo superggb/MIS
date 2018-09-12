@@ -94,4 +94,10 @@ public class AccountRelatedImplTest {
             System.out.println(department);
         }
     }
+
+    @Test
+    public void findEmployeeByEidService(){
+        Employee employee = accountRelated.findEmployeeByEid(100003);
+        System.out.println(employee);
+    }
 }

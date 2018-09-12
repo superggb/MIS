@@ -211,4 +211,11 @@ public class AccountRelatedImpl implements AccountRelated {
     public List<Department> findDepartment(int start, int len){
         return departmentDao.selectAll(start, len);
     }
+
+    @Transactional
+    @Override
+    public Employee findEmployeeByEid(int eid){
+        return employeeDao.findEmployeeByEid(eid);
+    }
+
 }

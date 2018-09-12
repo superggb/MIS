@@ -33,4 +33,8 @@
     <select id="findNameByEid" resultType="java.lang.String">
         SELECT `name` FROM employee WHERE eid = ${eid}
     </select>
+
+    <select id="findEmployeeByEid" resultType="Employee">
+        SELECT * FROM employee WHERE eid = ${eid}
+    </select>
 </mapper>
