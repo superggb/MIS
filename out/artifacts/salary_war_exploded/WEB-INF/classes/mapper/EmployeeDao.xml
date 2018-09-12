@@ -29,4 +29,12 @@
     <delete id="deleteEmployee">
         DELETE FROM employee WHERE eid=${eid}
     </delete>
+
+    <select id="findNameByEid" resultType="java.lang.String">
+        SELECT `name` FROM employee WHERE eid = ${eid}
+    </select>
+
+    <select id="findEmployeeByEid" resultType="Employee">
+        SELECT * FROM employee WHERE eid = ${eid}
+    </select>
 </mapper>
