@@ -38,4 +38,10 @@ public class EmployeeDaoTest {
     public void deleteEmployeeTest(){
         employeeDao.deleteEmployee(100001);
     }
+
+    @Test
+    public void findEmployeeByEidTest(){
+        Employee employee = employeeDao.findEmployeeByEid(11003);
+        System.out.println(employee);
+    }
 }

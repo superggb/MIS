@@ -19,7 +19,7 @@ public class MoneyRelatedServiceImplTest {
 
     @Test
     public void test(){
-        List<SalaryShow> salaryShows = moneyRelatedService.findSalaryOrderByDate(0,2);
+        List<SalaryShow> salaryShows = moneyRelatedService.findSalaryOrderByDate(0,90);
         for (SalaryShow salaryShow:
               salaryShows) {
             System.out.println(salaryShow);

@@ -51,4 +51,8 @@ public interface EmployeeDao {
     String findNameByEid(
             @Param("eid") int eid
     );
+
+    Employee findEmployeeByEid(
+            @Param("eid") int eid
+    );
 }
