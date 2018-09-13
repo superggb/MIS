@@ -31,7 +31,7 @@
 <h1 class="header-w3ls">员工缺勤信息</h1>
 <div class="w3ls-btn">
     <div class="wthreesubmitaits">
-        <a href="xingZhengBu.html"><button>新增缺勤信息</button></a>
+        <a href="/refaddabs"><button>新增缺勤信息</button></a>
     </div>
 </div>
 <div class="content-w3ls">
@@ -56,7 +56,7 @@
                     <td>${ab.starttime}</td>
                     <td>${ab.endtime}</td>
                     <td>${ab.description}</td>
-                    <td><a href="xingZhengBu2.html">修改</a>&nbsp;&nbsp;<a href="#">删除</a></td>
+                    <td><a href="/editabs/${ab.aid}">修改</a>&nbsp;&nbsp;<a href="/delabs/${ab.aid}">删除</a></td>
                 </tr>
                 </c:forEach>
 

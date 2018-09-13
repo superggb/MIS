@@ -27,4 +27,5 @@
         endtime="${endtime}", state=${state},description="${description}"
         WHERE aid=${aid}
     </update>
+
 </mapper>

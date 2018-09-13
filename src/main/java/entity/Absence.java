@@ -13,6 +13,15 @@ public class Absence {
     public Absence() {
     }
 
+    public Absence(int aid, int eid, Timestamp starttime, Timestamp endtime, int state, String description) {
+        this.aid = aid;
+        this.eid = eid;
+        this.starttime = starttime;
+        this.endtime = endtime;
+        this.state = state;
+        this.description = description;
+    }
+
     public Absence(int eid, Timestamp starttime, Timestamp endtime, String description) {
         this.eid = eid;
         this.starttime = starttime;

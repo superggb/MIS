@@ -33,7 +33,6 @@
     <div class="wthreesubmitaits">
         <a href="/addemp1"><button style="margin-right: 1%;">新增人员信息</button></a>
         <a href="/renshibu"><button style="margin-right: 1%;">新增调动信息</button></a>
-        <a href="xingZhengBu.html"><button >新增缺勤信息</button></a>
     </div>
 </div>
 <div class="content-w3ls">

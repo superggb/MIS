@@ -29,11 +29,6 @@
 </head>
 <body>
 <h1 class="header-w3ls">权限分配</h1>
-<div class="w3ls-btn">
-    <div class="wthreesubmitaits">
-        <a href="#"><button>权限审批</button></a>
-    </div>
-</div>
 <div class="content-w3ls">
     <div class="form-w3ls">
         <div class="grid-agileits1">
@@ -52,7 +47,7 @@
                     <td>${dp.name}</td>
                     <td>${dp.did}</td>
                     <td>${dp.password}</td>
-                    <td><a href="#">修改</a></td>
+                    <td><a href="/changepassword/${dp.did}">修改</a></td>
                 </tr>
                 </c:forEach>
                 </tbody>

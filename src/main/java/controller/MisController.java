@@ -22,6 +22,7 @@ import service.AccountRelated;
 import service.MoneyRelatedService;
 import util.DepId;
 
+import javax.jws.WebParam;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -60,6 +61,10 @@ public class MisController {
 
         if(way==0){
             Employee employee=accountRelated.loginEmployee(username,password);
+            if(employee==null){
+                model.addAttribute("result",0);
+                return "login";
+            }
             List<SalaryShow> salaryShows=moneyRelatedService.findSalaryOrderByDate(employee.getEid(),20);
             model.addAttribute("sas",salaryShows);
             model.addAttribute("eid",employee.getEid());
@@ -67,14 +72,19 @@ public class MisController {
         }
         if(way==1){
             Department department=accountRelated.loginDepartment(username,password);
+            if(department==null){
+                model.addAttribute("result",0);
+                return "login";
+            }
             if(department.getName().equals("管理员")) {
                 List<Department> departments = accountRelated.findDepartment(0, 20);
                 model.addAttribute("deps",departments);
                 return "main_manager";
             }
             if(department.getName().equals("行政部")){
-                List<AbsenceInfo> absenceInfos=absenceService.selectAbsenceRecords(0,50);
-                model.addAttribute("abs",absenceInfos);
+                //List<AbsenceInfo> absenceInfos=absenceService.selectAbsenceRecords(0,50);  这条语句会出现BUG，估计因为项目一直没有rebuid，导致class文件并为得到更改
+                 List<AbsenceInfo> absences = absenceService.selectAbsenceRecords(0,50);
+                model.addAttribute("abs",absences);
                 return "main_xingZhengBu";
             }
             if(department.getName().equals("人事部")) {
@@ -93,7 +103,7 @@ public class MisController {
 
 
     /**
-     * 新增员工信息
+     * 人事部：添加员工信息
      */
     @RequestMapping(value = "/addemp1",method = RequestMethod.GET)
     public String addemp(){
@@ -116,64 +126,53 @@ public class MisController {
 
 
     /**
-     * 添加员工调度信息
+     * 人事部：添加员工调度信息
      * @return
      */
     @RequestMapping(value = "/renshibu",method = RequestMethod.GET)
     public String renshibu(){return "renShiBu"; }
 
     @RequestMapping(value = "/addtransfer",method = RequestMethod.POST)
-    public String addtransfer(@Param("eid") int eid,@Param("way")int way,
-                              @Param("odep")int odep,@Param("ndep") int ndep){
+    public String addtransfer(@Param("eid") int eid, @Param("way")int way,
+                              @Param("odep")int odep, @Param("ndep") int ndep, Model model){
         System.out.println("eid="+eid+"way="+way+"odep"+odep+"ndep"+ndep);
 
+        int oldDep=depId.getDepId(odep);
+        int newDep=depId.getDepId(ndep);
         //根据调动方式way传递新旧部门号给数据层
         if(way==0){
             //调动：新旧部门采用传入参数
+            accountRelated.addTransferRecord(eid,oldDep,newDep);
         }
         if(way==1){
             //辞退：旧部门采用传入参数，新部门为-1
+            accountRelated.addTransferRecord(eid,oldDep,-1);
         }
         if(way==2){
             //退休：旧部门采用传入参数，新部门为0
+            accountRelated.addTransferRecord(eid,oldDep,0);
         }
         if(way==3){
             //新员工：旧部门采用-1，新部门为传入参数
+            accountRelated.addTransferRecord(eid,-1,newDep);
         }
-        return null;
+        List<TransferInfo> transferInfos=accountRelated.findTransferInfoOrderByDate(0,50);
+        model.addAttribute("Infos",transferInfos);
+        return "main_renShiBu";
 
     }
 
-
-
-
-    @RequestMapping(value = "/changepassword/{eid}",method = RequestMethod.GET)
-    public String changgepassword(@PathVariable("eid") int eid,Model model){
-        Employee employee= accountRelated.findEmployeeByEid(eid);
-        model.addAttribute("emp",employee);
-        return "yuanGong1";
-    }
-
-
-    @RequestMapping(value = "/confirmpassword",method = RequestMethod.POST)
-    public String confrimpassword(@Param("eid") int eid,@Param("ename")String name,
-                                  @Param("opass")String opass,@Param("npass")String npass,Model model){
-        int result=accountRelated.updateEmployeePassword(eid,name,opass,npass);
-        model.addAttribute("result",result);
-        return "main_yuanGong";
-    }
 
 
     /**
-     * 添加缺勤记录
-     * @param cid
-     * @param startTime
-     * @param days
-     * @param atype
-     * @param reason
-     * @param model
-     * @return
+     * 行政部：添加缺勤记录
      */
+
+    @RequestMapping(value = "/refaddabs",method = RequestMethod.GET)
+    public String refaddabsenc(){
+        return "xingZhengBu";
+    }
+
     @RequestMapping(value = "/addabs",method = RequestMethod.POST)
     public String addabsence(@Param("cnumber")int cid, @Param("startDate") Timestamp startTime,
                              @Param("days")int days, @Param("atype") int atype, @Param("reason")String reason, Model model){
@@ -191,9 +190,63 @@ public class MisController {
         return "main_xingZhengBu";
     }
 
+    /**
+     * 行政部：修改单条缺勤记录
+     * @param aid
+     * @return
+     */
+    @RequestMapping(value = "/editabs/{aid}",method = RequestMethod.GET)
+    public String editabsencerecorde(@PathVariable("aid") int aid){
+        //TODO:传入单条缺勤数据到xingZhengBu2界面，在其界面实现修改
+        return "xingZhengBu2";
+    }
+
+    /**
+     * 行政部：删除单条缺勤记录
+     * @param aid
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="/delabs/{aid}",method = RequestMethod.GET)
+    public String deleteabsencerecord(@PathVariable("aid") int aid,Model model){
+        //TODO:根据eid删除单条缺勤记录
+        List<AbsenceInfo> absences = absenceService.selectAbsenceRecords(0,50);
+        model.addAttribute("abs",absences);
+        return "main_xingZhengBu";
+    }
+
+
+
     @RequestMapping(value = "/editsala/{sid}",method = RequestMethod.GET)
     public String editsalary(@PathVariable("sid") int sid,Model model){
         return null;
     }
+
+
+    /**
+     * 管理员：修改部门密码
+     * @param eid
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/changepassword/{did}",method = RequestMethod.GET)
+    public String changgepassword(@PathVariable("did") int eid,Model model){
+       //TODO:查询部门信息传入Model
+        return "yuanGong1";
+    }
+
+
+    @RequestMapping(value = "/confirmpassword",method = RequestMethod.POST)
+    public String confrimpassword(@Param("eid") int eid,@Param("ename")String name,
+                                  @Param("opass")String opass,@Param("npass")String npass,Model model){
+        int result=accountRelated.updateEmployeePassword(eid,name,opass,npass);
+        model.addAttribute("result",result);
+        List<Department> departments = accountRelated.findDepartment(0, 20);
+        model.addAttribute("deps",departments);
+        return "main_manager";
+    }
+
+
+
 
 }

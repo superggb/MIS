@@ -27,7 +27,7 @@ public class AbsenceServiceImplTest {
 
     @Test
     public void testSelect() {
-        List<AbsenceInfo> absences = absenceService.selectAbsenceRecords(0,10);
+        List<AbsenceInfo> absences = absenceService.selectAbsenceRecords(0,50);
         for (AbsenceInfo absence :
                 absences) {
             System.out.println(absence);
