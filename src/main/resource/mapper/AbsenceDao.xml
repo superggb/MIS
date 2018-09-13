@@ -28,4 +28,14 @@
         WHERE aid=${aid}
     </update>
 
+    <select id="findAbsenceInfoByAid" resultType="dto.AbsenceInfo">
+        SELECT employee.name, absence.eid,starttime, endtime,state,description
+        FROM employee, absence
+        WHERE employee.eid = absence.eid AND absence.aid = ${aid}
+        LIMIT 0,1
+    </select>
+
+    <delete id="deleteAbsenceByAid">
+        DELETE FROM absence WHERE aid = ${aid}
+    </delete>
 </mapper>

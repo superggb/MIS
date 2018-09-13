@@ -184,4 +184,15 @@ public class AbsenceServiceImpl implements AbsenceService {
         return absenceInfos;
     }
 
+    @Transactional
+    @Override
+    public AbsenceInfo findAbsenceInfoByAid(int aid){
+        return absenceDao.findAbsenceInfoByAid(aid);
+    }
+
+    @Transactional
+    @Override
+    public Integer deleteAbsenceByAid(int aid){
+        return absenceDao.deleteAbsenceByAid(aid);
+    }
 }

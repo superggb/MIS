@@ -30,7 +30,7 @@
                 <div class="grid-agileits1">
                     <div class="form-control">
                         <label class="header">员工工号 <span>*</span></label>
-                        <input type="text" id="name" name="cnumber" title="Please enter your Full Name" required="">
+                        <input type="text" id="name" name="cnumber" title="Please enter your Full Name" required="" >
                     </div>
                     <div class="form-control">
                         <label class="header">请假开始日期 :</label>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="form-control">
                         <label class="header">请假原因 :</label>
-                        <textarea id="message" name="reason"></textarea>
+                        <textarea id="message" name="reason"><c:out value="${abs.description}"/> </textarea>
                     </div>
                 </div>
             </div>

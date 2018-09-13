@@ -86,4 +86,10 @@ public interface AbsenceService {
      */
     @Transactional
     List<AbsenceInfo> selectAbsenceRecords(int start, int len);
+
+    @Transactional
+    AbsenceInfo findAbsenceInfoByAid(int aid);
+
+    @Transactional
+    Integer deleteAbsenceByAid(int aid);
 }

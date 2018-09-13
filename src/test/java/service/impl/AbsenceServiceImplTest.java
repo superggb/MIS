@@ -45,4 +45,9 @@ public class AbsenceServiceImplTest {
     public void testUpdate(){
         Integer absence = absenceService.updateAbsenceRecord(1,100001, new Timestamp(new Date().getTime()),new Timestamp(new Date().getTime()),3,"sa");
     }
+
+    @Test
+    public void deleteAbsenceByAidTest(){
+        absenceService.deleteAbsenceByAid(1);
+    }
 }

@@ -1,5 +1,6 @@
 package dao;
 
+import dto.AbsenceInfo;
 import entity.Absence;
 import entity.Employee;
 import org.apache.ibatis.annotations.Param;
@@ -53,4 +54,11 @@ public interface AbsenceDao {
             @Param("description") String description
     );
 
+    public AbsenceInfo findAbsenceInfoByAid(
+            @Param("aid") int aid
+    );
+
+    public Integer deleteAbsenceByAid(
+            @Param("aid") int aid
+    );
 }

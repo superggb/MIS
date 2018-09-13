@@ -96,6 +96,12 @@ public class AccountRelatedImplTest {
     }
 
     @Test
+    public void findDepartmentByDid(){
+        Department department = accountRelated.findDepartmentByDid(11001);
+        System.out.println(department);
+    }
+
+    @Test
     public void findEmployeeByEidService(){
         Employee employee = accountRelated.findEmployeeByEid(100003);
         System.out.println(employee);

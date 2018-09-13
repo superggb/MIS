@@ -49,4 +49,8 @@ public interface DepartmentDao {
     Integer updateDepartment(
             @Param("department")Department department
     );
+
+    Department findDepartmentByDid(
+            @Param("did") int did
+    );
 }

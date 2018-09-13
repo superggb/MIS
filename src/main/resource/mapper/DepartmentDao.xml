@@ -26,4 +26,9 @@
     <update id="updateDepartment">
         UPDATE department SET name = "${department.name}", password = "${department.password}" WHERE did = ${department.did}
     </update>
+
+    <select id="findDepartmentByDid" resultType="entity.Department">
+        SELECT * FROM department WHERE did = ${did} LIMIT 0,1
+    </select>
+
 </mapper>

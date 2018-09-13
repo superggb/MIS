@@ -196,8 +196,10 @@ public class MisController {
      * @return
      */
     @RequestMapping(value = "/editabs/{aid}",method = RequestMethod.GET)
-    public String editabsencerecorde(@PathVariable("aid") int aid){
-        //TODO:传入单条缺勤数据到xingZhengBu2界面，在其界面实现修改
+    public String editabsencerecorde(@PathVariable("aid") int aid,Model model){
+        //TODO:传入单条缺勤数据到xingZhengBu2界面，在其界面实现修改,传过去了，但是没有在JPS里显示，也木有写好xingZhengBu2相关界面的逻辑
+        AbsenceInfo absenceInfo = absenceService.findAbsenceInfoByAid(aid);
+        model.addAttribute("abs", absenceInfo);
         return "xingZhengBu2";
     }
 
@@ -209,7 +211,8 @@ public class MisController {
      */
     @RequestMapping(value="/delabs/{aid}",method = RequestMethod.GET)
     public String deleteabsencerecord(@PathVariable("aid") int aid,Model model){
-        //TODO:根据eid删除单条缺勤记录
+        //TODO:根据eid删除单条缺勤记录，不应该是eid，而是aid DONE
+        absenceService.deleteAbsenceByAid(aid);
         List<AbsenceInfo> absences = absenceService.selectAbsenceRecords(0,50);
         model.addAttribute("abs",absences);
         return "main_xingZhengBu";
@@ -225,13 +228,15 @@ public class MisController {
 
     /**
      * 管理员：修改部门密码
-     * @param eid
+     * @param did
      * @param model
      * @return
      */
     @RequestMapping(value = "/changepassword/{did}",method = RequestMethod.GET)
-    public String changgepassword(@PathVariable("did") int eid,Model model){
-       //TODO:查询部门信息传入Model
+    public String changgepassword(@PathVariable("did") int did,Model model){
+       //TODO:查询部门信息传入Model, DONE
+       Department department = accountRelated.findDepartmentByDid(did);
+       model.addAttribute("did", department);
         return "yuanGong1";
     }
 

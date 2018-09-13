@@ -4,6 +4,7 @@ import dao.DepartmentDao;
 import dao.EmployeeDao;
 import dao.SalaryDao;
 import dao.TransferDao;
+import dto.AbsenceInfo;
 import dto.TransferInfo;
 import entity.Department;
 import entity.Employee;
@@ -223,4 +224,11 @@ public class AccountRelatedImpl implements AccountRelated {
     public Integer addTransferRecord(int eid, int old_department, int new_department){
         return transferDao.addTransferRecord(eid, old_department, new_department);
     }
+
+    @Transactional
+    @Override
+    public Department findDepartmentByDid(int did){
+        return departmentDao.findDepartmentByDid(did);
+    }
+
 }

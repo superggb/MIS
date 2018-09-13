@@ -91,4 +91,7 @@ public interface AccountRelated {
 
     @Transactional
     Integer addTransferRecord(int eid, int old_department, int new_department);
+
+    @Transactional
+    Department findDepartmentByDid(int did);
 }

@@ -1,5 +1,6 @@
 package dao;
 
+import dto.AbsenceInfo;
 import entity.Absence;
 import entity.Employee;
 import org.junit.Test;
@@ -26,6 +27,12 @@ public class AbsenceDaoTest {
                 absences) {
             System.out.println(absence);
         }
+    }
+
+    @Test
+    public void findAbsenceInfoByAidTest(){
+        AbsenceInfo absenceInfo = absenceDao.findAbsenceInfoByAid(1);
+        System.out.println(absenceInfo);
     }
 
 }
