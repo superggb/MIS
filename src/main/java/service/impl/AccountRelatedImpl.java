@@ -9,6 +9,7 @@ import dto.TransferInfo;
 import entity.Department;
 import entity.Employee;
 import entity.Transfer;
+import exception.DataSourceMybatisException;
 import exception.DepartmentNoSuchUserAndPasswordException;
 import exception.EmployeeNoSuchUserAndPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -217,7 +218,8 @@ public class AccountRelatedImpl implements AccountRelated {
      */
     @Transactional
     @Override
-    public List<Department> findDepartment(int start, int len){
+    public List<Department> findDepartment(int start, int len)  {
+        //TODO 测试用测试异常处理机制，return前均为测试语句，测试完后要删除地
         return departmentDao.selectAll(start, len);
     }
 

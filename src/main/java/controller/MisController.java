@@ -252,6 +252,9 @@ public class MisController {
     }
 
 
-
+    @RequestMapping(value = "/dataException")
+    public String dataException(){
+        return "/error/dataException";
+    }
 
 }
