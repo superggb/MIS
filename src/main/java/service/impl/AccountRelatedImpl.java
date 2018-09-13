@@ -9,6 +9,8 @@ import dto.TransferInfo;
 import entity.Department;
 import entity.Employee;
 import entity.Transfer;
+import exception.DepartmentNoSuchUserAndPasswordException;
+import exception.EmployeeNoSuchUserAndPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,6 +60,9 @@ public class AccountRelatedImpl implements AccountRelated {
     public Employee loginEmployee(int eid, String password) {
         try {
             Employee employee = employeeDao.loginIn(eid, password);
+            if (null == employee){
+                throw new EmployeeNoSuchUserAndPasswordException("No such employee user or password!");
+            }
             return employee;
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,6 +74,9 @@ public class AccountRelatedImpl implements AccountRelated {
     public Department loginDepartment(int did, String password) {
         try {
             Department department = departmentDao.loginIn(did, password);
+            if (null == department){
+                throw new DepartmentNoSuchUserAndPasswordException("No such department user or password!");
+            }
             return department;
         } catch (Exception e) {
             e.printStackTrace();

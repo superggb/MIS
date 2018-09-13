@@ -22,11 +22,7 @@ public class AccountRelatedImplTest {
     @Test
     public void loginTest(){
         Employee employee = accountRelated.loginEmployee(100001, "123456");
-        if (null == employee){
-            System.out.println("Test: no such employee.");
-        } else {
-            System.out.println("Test: employee name is: " + employee.getName());
-        }
+
 
         Department department = accountRelated.loginDepartment(11001,"123456");
         if (null == department){
