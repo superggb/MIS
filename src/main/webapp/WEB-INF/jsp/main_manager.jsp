@@ -47,7 +47,7 @@
                     <td>${dp.name}</td>
                     <td>${dp.did}</td>
                     <td>${dp.password}</td>
-                    <td><a href="/changepassword/${dp.did}">修改</a></td>
+                    <td><a href="/changedpassword/${dp.did}">修改</a></td>
                 </tr>
                 </c:forEach>
                 </tbody>

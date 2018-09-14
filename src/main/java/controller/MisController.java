@@ -11,19 +11,22 @@ import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import service.AbsenceService;
 import service.AccountRelated;
 import service.MoneyRelatedService;
 import util.DepId;
 
 import javax.jws.WebParam;
+import javax.servlet.http.HttpServletRequest;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Controller
@@ -174,17 +177,18 @@ public class MisController {
     }
 
     @RequestMapping(value = "/addabs",method = RequestMethod.POST)
-    public String addabsence(@Param("cnumber")int cid, @Param("startDate") Timestamp startTime,
+    public String addabsence(@Param("eid")int eid, @Param("startDate") String startTime,
                              @Param("days")int days, @Param("atype") int atype, @Param("reason")String reason, Model model){
+        System.out.println("eid="+eid+"    startDate="+startTime+"  days="+days+"   atype="+atype+"   reason="+reason);
         //请假
-        if(atype==1)
-            absenceService.addAbsenceRecordAskForLeave(cid,startTime,days,reason);
+       /* if(atype==1)
+            absenceService.addAbsenceRecordAskForLeave(eid,startTime,days,reason);
         //迟到
         if(atype==2)
-            absenceService.addAbsenceRecordLate(cid,startTime,days,reason);
+            absenceService.addAbsenceRecordLate(eid,startTime,days,reason);
         //旷工
         if(atype==3)
-            absenceService.addAbsenceRecordAbsenteeism(cid,startTime,days,reason);
+            absenceService.addAbsenceRecordAbsenteeism(eid,startTime,days,reason);*/
         List<AbsenceInfo> absences=absenceService.selectAbsenceRecords(0,50);
         model.addAttribute("abs",absences);
         return "main_xingZhengBu";
@@ -232,13 +236,31 @@ public class MisController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/changepassword/{did}",method = RequestMethod.GET)
-    public String changgepassword(@PathVariable("did") int did,Model model){
-       //TODO:查询部门信息传入Model, DONE
+    @RequestMapping(value = "/changedpassword/{did}",method = RequestMethod.GET)
+    public String changepassword(@PathVariable("did") int did,Model model){
        Department department = accountRelated.findDepartmentByDid(did);
-       model.addAttribute("did", department);
-        return "yuanGong1";
+       model.addAttribute("dep", department);
+        return "manager";
     }
+
+
+    @RequestMapping(value = "/confirmdpassword",method = RequestMethod.POST)
+    public String confirmdpassword(@Param("dname") String dname,@Param("did") int did,
+                                   @Param("oldpass") String opass,@Param("newpass")String npass,Model model){
+        System.out.println("dname="+dname+"    did="+did+"   opass="+opass+"    npass="+npass);
+        int result=accountRelated.updateDepartment(did,dname,npass);
+        model.addAttribute("result",result);
+        List<Department> departments = accountRelated.findDepartment(0, 20);
+        model.addAttribute("deps",departments);
+        return "main_manager";
+    }
+
+
+
+
+
+
+
 
 
     @RequestMapping(value = "/confirmpassword",method = RequestMethod.POST)
@@ -257,4 +279,13 @@ public class MisController {
         return "/error/dataException";
     }
 
+
+
+    @InitBinder
+    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        simpleDateFormat.setLenient(false);
+        CustomDateEditor dateEditor = new CustomDateEditor(simpleDateFormat, true);
+        binder.registerCustomEditor(Date.class,dateEditor);
+    }
 }

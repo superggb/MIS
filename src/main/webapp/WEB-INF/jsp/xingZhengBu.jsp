@@ -30,7 +30,7 @@
                 <div class="grid-agileits1">
                     <div class="form-control">
                         <label class="header">员工工号 <span>*</span></label>
-                        <input type="text" id="name" name="cnumber" required="">
+                        <input type="text" id="name" name="eid" required="">
                     </div>
                     <div class="form-control">
                         <label class="header">缺勤开始日期 :</label>
