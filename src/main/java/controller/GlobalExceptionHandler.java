@@ -11,8 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 全局异常处理类
- */
-@ControllerAdvice
+
+@ControllerAdvice*/
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = DepartmentNoSuchUserAndPasswordException.class)

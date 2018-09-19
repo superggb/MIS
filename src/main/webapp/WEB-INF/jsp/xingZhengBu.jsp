@@ -33,12 +33,12 @@
                         <input type="text" id="name" name="eid" required="">
                     </div>
                     <div class="form-control">
-                        <label class="header">缺勤开始日期 :</label>
-                        <input type="date" id="name" name="startDate"  required="">
-                    </div>
-                    <div class="form-control">
                         <label class="header">缺勤天数 :</label>
                         <input type="text" id="name" name="days"  required="">
+                    </div>
+                    <div class="form-control">
+                        <label class="header">缺勤开始日期 :</label>
+                        <input type="date" id="name" name="start"  required>
                     </div>
                     <div class="form-control">
                         <div class="main-row">

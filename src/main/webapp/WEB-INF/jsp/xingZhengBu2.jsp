@@ -18,7 +18,7 @@
     <!-- font files -->
     <link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
     <!-- /font files -->
-    <link href="form/css/style.css" rel='stylesheet' type='text/css' media="all" />
+    <link href="/resource/form/css/style.css" rel='stylesheet' type='text/css' media="all" />
 </head>
 <body>
 <h1 class="header-w3ls">修改员工缺勤信息</h1>
@@ -30,15 +30,15 @@
                 <div class="grid-agileits1">
                     <div class="form-control">
                         <label class="header">员工工号 <span>*</span></label>
-                        <input type="text" id="name" name="cnumber" title="Please enter your Full Name" required="" >
+                        <input type="text" id="name" name="cnumber" title="Please enter your Full Name" value="${abs.eid}" required="" >
                     </div>
                     <div class="form-control">
                         <label class="header">请假开始日期 :</label>
-                        <input type="date" id="name" name="startDate" title="Please enter your Phone No" required="">
+                        <input type="date" id="name" name="startDate" title="Please enter your Phone No" value="${abs.starttime}" required="">
                     </div>
                     <div class="form-control">
                         <label class="header">请假天数 :</label>
-                        <input type="text" id="name" name="days" title="Please enter your Phone No" required="">
+                        <input type="text" id="name" name="days" title="Please enter your Phone No" value="${abs.endtime}" required="">
                     </div>
                     <div class="form-control">
                         <label class="header">请假原因 :</label>
