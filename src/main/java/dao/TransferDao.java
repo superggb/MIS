@@ -46,6 +46,8 @@ public interface TransferDao {
             @Param("len") int len
     );
 
+    int deleteTransferRecordById(int tid);
+
 
 
 }

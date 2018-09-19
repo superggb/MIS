@@ -45,7 +45,7 @@ public class AccountRelatedImpl implements AccountRelated {
     @Transactional
     public Employee register(String name, String password, float salary, int did) {
             Employee employee = new Employee(name, salary,password);
-            employeeDao.addEmployee(employee, 11001);
+            employeeDao.addEmployee(employee, did);
             //还要相应的修改salary表
             salaryDao.addSalaryRecord(employee.getEid(), employee.getSalary(), SALARY_STATE_DESCRIPTION);
             return employee;
@@ -84,6 +84,7 @@ public class AccountRelatedImpl implements AccountRelated {
             return null;
         }
     }
+
 
 
 
@@ -143,7 +144,7 @@ public class AccountRelatedImpl implements AccountRelated {
     @Transactional
     @Override
     public Integer updateTransfer(Transfer transfer) {
-        return updateTransfer(transfer.getTid(), transfer.getEid(), transfer.getOld_department(), transfer.getNew_department());
+        return updateTransfer(transfer.getTid(), transfer.getEid(), transfer.getOldDepartment(), transfer.getNewDepartment());
     }
 
     /**
@@ -239,6 +240,11 @@ public class AccountRelatedImpl implements AccountRelated {
     @Override
     public Department findDepartmentByDid(int did){
         return departmentDao.findDepartmentByDid(did);
+    }
+
+    @Override
+    public int deleteTransferRecordById(int tid){
+        return transferDao.deleteTransferRecordById(tid);
     }
 
 }

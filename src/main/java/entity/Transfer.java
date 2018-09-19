@@ -5,9 +5,9 @@ import java.sql.Timestamp;
 public class Transfer {
     private int tid;
     private int eid;
-    private int old_department;
-    private int new_department;
-    private Timestamp date_time;
+    private int oldDepartment;
+    private int newDepartment;
+    private Timestamp dateTime;
 
     public Transfer() {
     }
@@ -15,9 +15,9 @@ public class Transfer {
     public Transfer(int tid, int eid, int old_department, int new_department, Timestamp date_time) {
         this.tid = tid;
         this.eid = eid;
-        this.old_department = old_department;
-        this.new_department = new_department;
-        this.date_time = date_time;
+        this.oldDepartment = old_department;
+        this.newDepartment = new_department;
+        this.dateTime = date_time;
     }
 
     public int getTid() {
@@ -36,28 +36,28 @@ public class Transfer {
         this.eid = eid;
     }
 
-    public int getOld_department() {
-        return old_department;
+    public int getOldDepartment() {
+        return oldDepartment;
     }
 
-    public void setOld_department(int old_department) {
-        this.old_department = old_department;
+    public void setOldDepartment(int old_department) {
+        this.oldDepartment = old_department;
     }
 
-    public int getNew_department() {
-        return new_department;
+    public int getNewDepartment() {
+        return newDepartment;
     }
 
-    public void setNew_department(int new_department) {
-        this.new_department = new_department;
+    public void setNewDepartment(int new_department) {
+        this.newDepartment = new_department;
     }
 
-    public Timestamp getDate_time() {
-        return date_time;
+    public Timestamp getDateTime() {
+        return dateTime;
     }
 
-    public void setDate_time(Timestamp date_time) {
-        this.date_time = date_time;
+    public void setDateTime(Timestamp date_time) {
+        this.dateTime = date_time;
     }
 
     @Override
@@ -65,9 +65,9 @@ public class Transfer {
         return "Transfer{" +
                 "tid=" + tid +
                 ", eid=" + eid +
-                ", old_department=" + old_department +
-                ", new_department=" + new_department +
-                ", date_time=" + date_time +
+                ", old_department=" + oldDepartment +
+                ", new_department=" + newDepartment +
+                ", date_time=" + dateTime +
                 '}';
     }
 }

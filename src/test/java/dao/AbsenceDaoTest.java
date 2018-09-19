@@ -31,7 +31,7 @@ public class AbsenceDaoTest {
 
     @Test
     public void findAbsenceInfoByAidTest(){
-        AbsenceInfo absenceInfo = absenceDao.findAbsenceInfoByAid(1);
+        AbsenceInfo absenceInfo = absenceDao.findAbsenceInfoByAid(29);
         System.out.println(absenceInfo);
     }
 

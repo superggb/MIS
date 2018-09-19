@@ -93,6 +93,8 @@ public interface AccountRelated {
     @Transactional
     Integer addTransferRecord(int eid, int old_department, int new_department);
 
+    int deleteTransferRecordById(int tid);
+
     @Transactional
     Department findDepartmentByDid(int did);
 }

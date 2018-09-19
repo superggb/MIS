@@ -15,6 +15,7 @@ import java.util.List;
 @ContextConfiguration({"classpath:spring/spring-*.xml"})
 public class AccountRelatedImplTest {
 
+
     @Autowired
     private AccountRelatedImpl accountRelated;
 
@@ -34,9 +35,9 @@ public class AccountRelatedImplTest {
 
     @Test
     public void registerTest(){
-        Employee employee = new Employee("大厦", (float) 1.1,"123456");
-        accountRelated.register("大厦", "123456",(float) 1.1,11001);
+        accountRelated.register("大厦", "123456",(float) 1.1,11003);
     }
+
 
     @Test
     public void updateEmployeeTest(){
@@ -78,7 +79,7 @@ public class AccountRelatedImplTest {
         List<TransferInfo> transferInfos = accountRelated.findTransferInfoOrderByDate(0,10);
         for (TransferInfo transferInfo:
              transferInfos) {
-            System.out.println(transferInfo.getName());
+            System.out.println(transferInfo);
         }
     }
 

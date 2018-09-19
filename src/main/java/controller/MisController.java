@@ -57,6 +57,7 @@ public class MisController {
      * @param way
      * @param model
      * @return
+     * 完成
      */
     @RequestMapping(value = "/main",method = RequestMethod.POST)
     public String login(@RequestParam("username") int username,@RequestParam("password") String password,@RequestParam("way") int way,Model model){
@@ -86,7 +87,6 @@ public class MisController {
                 return "main_manager";
             }
             if(department.getName().equals("行政部")){
-                //List<AbsenceInfo> absenceInfos=absenceService.selectAbsenceRecords(0,50);  这条语句会出现BUG，估计因为项目一直没有rebuid，导致class文件并为得到更改
                  List<AbsenceInfo> absences = absenceService.selectAbsenceRecords(0,50);
                 model.addAttribute("abs",absences);
                 return "main_xingZhengBu";
@@ -108,6 +108,7 @@ public class MisController {
 
     /**
      * 人事部：添加员工信息
+     * DONE
      */
     @RequestMapping(value = "/addemp1",method = RequestMethod.GET)
     public String addemp(){
@@ -117,10 +118,8 @@ public class MisController {
     @RequestMapping(value = "/addemp",method = RequestMethod.POST)
     public String addemployee(@RequestParam("ename") String ename,
                               @RequestParam("password") String password,@RequestParam("dpnum")int dpnum,Model model){
-
-        System.out.println("ename="+ename+",password"+password+"dpnum:"+dpnum);
-
         int did=depId.getDepId(dpnum);
+        System.out.println("ename="+ename+",password"+password+"dpnum:"+dpnum+"     did="+did);
         float salary=5000;
         accountRelated.register(ename,password,salary,did);
         List<TransferInfo> transferInfos=accountRelated.findTransferInfoOrderByDate(0,50);
@@ -138,8 +137,10 @@ public class MisController {
 
     @RequestMapping(value = "/addtransfer",method = RequestMethod.POST)
     public String addtransfer(@RequestParam("eid") int eid, @RequestParam("way")int way,
-                              @RequestParam("odep")int odep, @RequestParam("ndep") int ndep, Model model){
-        System.out.println("eid="+eid+"way="+way+"odep"+odep+"ndep"+ndep);
+                              @RequestParam(value = "odep",required = false)Integer odep,
+                              @RequestParam(value = "ndep",required = false) Integer ndep,
+                              Model model){
+        System.out.println("eid="+eid+"             way="+way+"               odep"+odep+"               ndep"+ndep);
 
         int oldDep=depId.getDepId(odep);
         int newDep=depId.getDepId(ndep);
@@ -167,9 +168,26 @@ public class MisController {
     }
 
 
+    /**
+     * 人事部删除调度信息
+     * @param tid
+     * @param model
+     * @return
+     * DONE
+     */
+    @RequestMapping(value = "/deletetransfer/{tid}",method = RequestMethod.GET)
+    public String deletetransfer(@PathVariable("tid") int tid, Model model){
+        accountRelated.deleteTransferRecordById(tid);
+        List<TransferInfo> transferInfos=accountRelated.findTransferInfoOrderByDate(0,50);
+        model.addAttribute("Infos",transferInfos);
+        return "main_renShiBu";
+    }
+
+
 
     /**
      * 行政部：添加缺勤记录
+     * 完成
      */
 
     @RequestMapping(value = "/refaddabs",method = RequestMethod.GET)
@@ -180,6 +198,15 @@ public class MisController {
     @RequestMapping(value = "/addabs",method = RequestMethod.POST)
     public String addabsence(int eid,int days,int atype,String start ,
                              String reason, Model model){
+        int result=addabsencerecord(eid,days,atype,start,reason);
+        List<AbsenceInfo> absences = absenceService.selectAbsenceRecords(0, 50);
+        model.addAttribute("abs", absences);
+        model.addAttribute("result",result);
+        return "main_xingZhengBu";
+    }
+
+    public int addabsencerecord(int eid,int days,int atype,String start ,
+                                String reason){
         try {
             SimpleDateFormat format=new SimpleDateFormat("yyyy-mm-dd");
             Date date = new Date(format.parse(start).getTime());//String转date的方法
@@ -187,34 +214,43 @@ public class MisController {
             Timestamp startTime=Timestamp.valueOf(newstart);//String转timestamp的方法
             System.out.println("date="+date+"   newstart="+newstart+"    startTime="+startTime);
             //请假
-        if(atype==1)
-            absenceService.addAbsenceRecordAskForLeave(eid,startTime,days,reason);
-        //迟到
-        if(atype==2)
-            absenceService.addAbsenceRecordLate(eid,startTime,days,reason);
-        //旷工
-        if(atype==3)
-            absenceService.addAbsenceRecordAbsenteeism(eid,startTime,days,reason);
-            List<AbsenceInfo> absences = absenceService.selectAbsenceRecords(0, 50);
-            model.addAttribute("abs", absences);
-
+            if(atype==1)
+                absenceService.addAbsenceRecordAskForLeave(eid,startTime,days,reason);
+            //迟到
+            if(atype==2)
+                absenceService.addAbsenceRecordLate(eid,startTime,days,reason);
+            //旷工
+            if(atype==3)
+                absenceService.addAbsenceRecordAbsenteeism(eid,startTime,days,reason);
         }catch (Exception e){
             System.out.println(e);
+            return 0;
         }
-        return "main_xingZhengBu";
+        return 1;
     }
 
     /**
      * 行政部：修改单条缺勤记录
      * @param aid
      * @return
+     * DONE
      */
     @RequestMapping(value = "/editabs/{aid}",method = RequestMethod.GET)
     public String editabsencerecorde(@PathVariable("aid") int aid,Model model){
-        //TODO:传入单条缺勤数据到xingZhengBu2界面，在其界面实现修改,传过去了，但是没有在JPS里显示，也木有写好xingZhengBu2相关界面的逻辑
         AbsenceInfo absenceInfo = absenceService.findAbsenceInfoByAid(aid);
         model.addAttribute("abs", absenceInfo);
         return "xingZhengBu2";
+    }
+
+    @RequestMapping(value = "/confirmeditabs/{aid}",method=RequestMethod.POST)
+    public String confirmeditabs(@PathVariable("aid")int aid,int eid,int days,int atype,String start ,
+                                 String reason,Model model){
+        absenceService.deleteAbsenceByAid(aid);
+        int result=addabsencerecord(eid,days,atype,start,reason);
+        List<AbsenceInfo> absences = absenceService.selectAbsenceRecords(0, 50);
+        model.addAttribute("abs", absences);
+        model.addAttribute("result",result);
+        return "main_xingZhengBu";
     }
 
     /**
@@ -222,10 +258,12 @@ public class MisController {
      * @param aid
      * @param model
      * @return
+     * 完成
      */
     @RequestMapping(value="/delabs/{aid}",method = RequestMethod.GET)
     public String deleteabsencerecord(@PathVariable("aid") int aid,Model model){
         //TODO:根据eid删除单条缺勤记录，不应该是eid，而是aid DONE
+        System.out.println("aid="+aid);
         absenceService.deleteAbsenceByAid(aid);
         List<AbsenceInfo> absences = absenceService.selectAbsenceRecords(0,50);
         model.addAttribute("abs",absences);
@@ -245,6 +283,7 @@ public class MisController {
      * @param did
      * @param model
      * @return
+     * 完成
      */
     @RequestMapping(value = "/changedpassword/{did}",method = RequestMethod.GET)
     public String changepassword(@PathVariable("did") int did,Model model){
@@ -264,6 +303,10 @@ public class MisController {
         model.addAttribute("deps",departments);
         return "main_manager";
     }
+
+
+
+
 
 
     @RequestMapping(value = "/confirmpassword",method = RequestMethod.POST)

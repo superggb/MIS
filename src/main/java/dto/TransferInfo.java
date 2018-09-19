@@ -30,17 +30,17 @@ public class TransferInfo extends Transfer {
 
     public TransferInfo(Transfer transfer){
         this.setEid(transfer.getEid());
-        this.setDate_time(transfer.getDate_time());
-        this.setNew_department(transfer.getNew_department());
-        this.setOld_department(transfer.getOld_department());
+        this.setDateTime(transfer.getDateTime());
+        this.setNewDepartment(transfer.getNewDepartment());
+        this.setOldDepartment(transfer.getOldDepartment());
         this.setTid(transfer.getTid());
-        if (-1 == this.getOld_department() && -1 != this.getNew_department()){
+        if (-1 == this.getOldDepartment() && -1 != this.getNewDepartment()){
             this.transferInfo = KIND_TRANSFER_NEWMAN;
-        } else if (-1 != getOld_department() && -1 != getNew_department()){
+        } else if (-1 != getOldDepartment() && -1 != getNewDepartment()){
             this.transferInfo = KIND_TRANSFER_MOBILIZE;
-        } else if (-1 != getOld_department() && -1 == getNew_department()){
+        } else if (-1 != getOldDepartment() && -1 == getNewDepartment()){
             this.transferInfo = KIND_TRANSFER_DISMISS;
-        } else if (-1 != getOld_department() && 0 == getNew_department()){
+        } else if (-1 != getOldDepartment() && 0 == getNewDepartment()){
             this.transferInfo = KIND_TRANSFER_RETIRE;
         } else {
             this.transferInfo = KIND_TRANSFER_WRONG;

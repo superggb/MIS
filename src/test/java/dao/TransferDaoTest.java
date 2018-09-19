@@ -12,6 +12,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class TransferDaoTest {
+
     @Autowired
     TransferDao transferDao;
 
@@ -32,5 +33,11 @@ public class TransferDaoTest {
                 transfers) {
             System.out.println(transfer);
         }
+    }
+
+    @Test
+    public void deleteTransferRecordById() throws Exception {
+        int i=transferDao.deleteTransferRecordById(9);
+        System.out.println(i);
     }
 }

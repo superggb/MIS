@@ -18,7 +18,7 @@
     <!-- font files -->
     <link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
     <!-- /font files -->
-    <link href="form/css/style.css" rel='stylesheet' type='text/css' media="all" />
+    <link href="/resource/form/css/style.css" rel='stylesheet' type='text/css' media="all" />
 </head>
 <body>
 <h1 class="header-w3ls">记录员工流动信息</h1>

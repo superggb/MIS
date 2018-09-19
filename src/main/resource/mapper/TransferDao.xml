@@ -16,4 +16,9 @@
         SELECT * FROM transfer ORDER BY date_time DESC LIMIT ${start},${len}
     </select>
 
+
+    <delete id="deleteTransferRecordById" >
+        DELETE FROM transfer WHERE tid=#{tid}
+    </delete>
+
 </mapper>

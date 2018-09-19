@@ -9,8 +9,10 @@ public class AbsenceInfo extends Absence {
     private String name;
 
     public AbsenceInfo(Absence absence) {
-        super(absence.getEid(), absence.getStarttime(), absence.getEndtime(), absence.getDescription());
+        super(absence.getAid(),absence.getEid(), absence.getStarttime(), absence.getEndtime(), absence.getDescription());
     }
+
+
 
     public AbsenceInfo(){
     }
