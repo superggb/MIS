@@ -4,6 +4,7 @@
   Date: 2018/9/10
   Time: 15:00
   To change this template use File | Settings | File Templates.
+  DONE
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="common/tag.jsp"%>
@@ -31,7 +32,7 @@
                 <label>账号</label>
                 <input type="text" name="username" placeholder="Username" required/>
                 <label>密码</label>
-                <input type="text" name="password" placeholder="Password" required />
+                <input type="password" name="password" placeholder="Password" required />
                 <div style="margin-bottom: 10%;margin-top: 10%;">
                     <label style="position:sticky;display: inline;"><input type="radio" name="way" value="0" checked="checked"><font color="white" size="2">员工登录</font></label>
                     <label style="margin-left: 15%;position: sticky;display: inline;"><input type="radio" name="way" value="1" ><font color="white" size="2">管理人员登录</font></label>

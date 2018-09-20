@@ -4,6 +4,7 @@
   Date: 2018/9/10
   Time: 15:57
   To change this template use File | Settings | File Templates.
+  DONE
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="common/tag.jsp"%>
@@ -27,11 +28,12 @@
     <script type="text/javascript" src="/resource/list/js/jquery.yhhDataTable.js" ></script>
     <script type="text/javascript" src="/resource/list/js/index.js" ></script>
 </head>
-<body>
+<body style="background-image: url(/resource/background/xingzheng.jpg);">
 <h1 class="header-w3ls">员工缺勤信息</h1>
 <div class="w3ls-btn">
     <div class="wthreesubmitaits">
         <a href="/refaddabs"><button>新增缺勤信息</button></a>
+        <a href="xingZhengBu.html"><button style="background: gray;">退出登录</button></a>
     </div>
 </div>
 <div class="content-w3ls">

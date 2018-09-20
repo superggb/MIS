@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.SalaryDao">
+    
+    <update id="updateSalary">
+        UPDATE salary SET salary = ${salary} , bonus = ${bonus},
+        description = "${description}" WHERE eid = ${eid} LIMIT 1
+    </update>
+
+    <insert id="addSalaryRecord" useGeneratedKeys="true">
+        INSERT INTO salary(eid, salary,description) VALUES (${eid}, ${salary}, "${description}")
+    </insert>
+
+    <select id="findSalaryByEidOrderByDate" resultType="dto.SalaryShow">
+        SELECT employee.eid,`name`, `date`,salary.salary,fine,bonus,tax,realsalary FROM employee, salary WHERE salary.eid = ${eid} AND employee.eid = ${eid}
+        ORDER BY salary.date DESC LIMIT ${start}, ${len}
+    </select>
+
+    <select id="findSalaryOrderByDate" resultType="dto.SalaryShow">
+        SELECT salary.sid, employee.eid,`name`, `date`,salary.salary,fine,bonus,tax,realsalary FROM employee, salary WHERE employee.eid = salary.eid
+        ORDER BY salary.date DESC LIMIT ${start}, ${len}
+    </select>
+</mapper>

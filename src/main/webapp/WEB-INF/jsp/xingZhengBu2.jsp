@@ -4,6 +4,7 @@
   Date: 2018/9/11
   Time: 10:50
   To change this template use File | Settings | File Templates.
+  DONE
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="common/tag.jsp"%>
@@ -20,7 +21,7 @@
     <!-- /font files -->
     <link href="/resource/form/css/style.css" rel='stylesheet' type='text/css' media="all" />
 </head>
-<body>
+<body style="background-image: url(/resource/background/xingzheng.jpg);">
 <h1 class="header-w3ls">修改员工缺勤信息</h1>
 <div class="content-w3ls">
     <div class="form-w3ls">

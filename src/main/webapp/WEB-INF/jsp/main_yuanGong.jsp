@@ -32,10 +32,15 @@
     if(1==${result})
         alert("修改密码成功！")
 </script>
-<h1 class="header-w3ls">孟老师工资信息</h1>
+<h1 class="header-w3ls">工资一览</h1>
 <div class="w3ls-btn">
     <div class="wthreesubmitaits">
+<<<<<<< HEAD
         <a href="/changepassword/${eid}"><button>修改密码</button></a>
+        <a href="xingZhengBu.html"><button style="background: gray;">退出登录</button></a>
+=======
+        <a href="/changeepassword/${eid}"><button>修改密码</button></a>
+>>>>>>> bc768bde9f7af6a31ccc77b4102a496917fcd999
     </div>
 </div>
 <div class="content-w3ls">
