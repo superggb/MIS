@@ -24,13 +24,13 @@
 <h1 class="header-w3ls">员工信息</h1>
 <div class="content-w3ls">
     <div class="form-w3ls">
-        <form action="/confirmpassword" method="post">
+        <form action="/confirmepassword" method="post">
             <div class="content-wthree1">
 
                 <div class="grid-agileits1">
                     <div class="form-control">
                         <label class="header">员工工号 <span>*</span></label>
-                        <input type="text" id="name" name="eid" value="${emp.eid}" disabled="disabled">
+                        <input type="text" id="name" name="eid" value="${emp.eid}" required>
                     </div>
                     <div class="form-control">
                         <label class="header">姓名 :</label>
