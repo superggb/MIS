@@ -43,6 +43,7 @@
                 <tr>
                     <th>工号</th>
                     <th>姓名</th>
+                    <th>调动日期</th>
                     <th>调动类型</th>
                     <th>操作</th>
                 </tr>
@@ -52,8 +53,9 @@
                 <tr>
                     <td>${info.eid}</td>
                     <td>${info.name}</td>
+                    <td><fmt:formatDate value="${info.date_time}" pattern="yyyy-MM-dd HH:mm:ss"/>   </td>
                     <td>${info.transferInfo}</td>
-                    <td><a href="/edittransfer/${info.tid}/${info.eid}">修改</a>&nbsp;&nbsp;<a href="/deletetransfer/${info.tid}">删除</a></td>
+                    <td><a href="#">修改</a>&nbsp;&nbsp;<a href="/deletetransfer/${info.tid}">删除</a></td>
                 </tr>
                 </c:forEach>
                 </tbody>
