@@ -27,12 +27,11 @@
     <script type="text/javascript" src="/resource/list/js/jquery.yhhDataTable.js" ></script>
     <script type="text/javascript" src="/resource/list/js/index.js" ></script>
 </head>
-<body style="background-image: url(/resource/background/caiwu.jpg);">
+<body>
 <h1 class="header-w3ls">员工工资信息</h1>
 <div class="w3ls-btn">
     <div class="wthreesubmitaits">
         <a href="xingZhengBu.html"><button>新增缺勤信息</button></a>
-        <a href="xingZhengBu.html"><button style="background: gray;">退出登录</button></a>
     </div>
 </div>
 <div class="content-w3ls">

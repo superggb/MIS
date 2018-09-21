@@ -4,7 +4,6 @@
   Date: 2018/9/10
   Time: 15:56
   To change this template use File | Settings | File Templates.
-  DONE
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="common/tag.jsp"%>
@@ -28,7 +27,7 @@
     <script type="text/javascript" src="/resource/list/js/jquery.yhhDataTable.js" ></script>
     <script type="text/javascript" src="/resource/list/js/index.js" ></script>
 </head>
-<body style="background-image: url(/resource/background/manager.jpg);">
+<body>
 <h1 class="header-w3ls">权限分配</h1>
 <div class="content-w3ls">
     <div class="form-w3ls">

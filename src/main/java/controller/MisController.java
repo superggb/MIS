@@ -167,53 +167,6 @@ public class MisController {
 
     }
 
-    /**
-     * 修改员工调度信息
-     * @param tid
-     * @param eid
-     * @param model
-     * @return
-     * DONE
-     */
-    @RequestMapping(value = "/edittransfer/{tid}/{eid}",method = RequestMethod.GET)
-    public String edittransfer(@PathVariable("tid") int tid,@PathVariable("eid")int eid, Model model){
-        model.addAttribute("tid",tid);
-        model.addAttribute("eid",eid);
-        return "renShiBu2";
-    }
-
-    @RequestMapping(value = "/{tid}/confirmtransfer",method = RequestMethod.GET)
-    public String confrimtransfer(@PathVariable("tid")int tid, @RequestParam("eid") int eid, @RequestParam("way")int way,
-                                  @RequestParam(value = "odep",required = false)Integer odep,
-                                  @RequestParam(value = "ndep",required = false) Integer ndep,
-                                  Model model){
-
-        System.out.println("eid="+eid+"             way="+way+"               odep"+odep+"               ndep"+ndep);
-
-        int oldDep=depId.getDepId(odep);
-        int newDep=depId.getDepId(ndep);
-        if(way==0){
-            //调动：新旧部门采用传入参数
-        }
-        if(way==1){
-            //辞退：旧部门采用传入参数，新部门为-1
-            newDep=-1;
-        }
-        if(way==2){
-            //退休：旧部门采用传入参数，新部门为0
-            newDep=0;
-        }
-        if(way==3){
-            //新员工：旧部门采用-1，新部门为传入参数
-            oldDep=-1;
-        }
-        int result=accountRelated.updateTransfer(tid,eid,oldDep,newDep);
-        model.addAttribute("result",result);
-        List<TransferInfo> transferInfos=accountRelated.findTransferInfoOrderByDate(0,50);
-        model.addAttribute("Infos",transferInfos);
-        return "main_renShiBu";
-    }
-
 
     /**
      * 人事部删除调度信息
@@ -229,9 +182,6 @@ public class MisController {
         model.addAttribute("Infos",transferInfos);
         return "main_renShiBu";
     }
-
-
-
 
 
 
@@ -358,23 +308,15 @@ public class MisController {
 
 
 
-    @RequestMapping(value = "/changeepassword/{eid}",method = RequestMethod.GET)
-    public String changeepassword(@PathVariable("eid") int eid,Model model){
-        Employee employee=accountRelated.findEmployeeByEid(eid);
-        model.addAttribute("emp",employee);
-        return "yuanGong1";
-    }
 
-
-    @RequestMapping(value = "/confirmepassword",method = RequestMethod.POST)
+    @RequestMapping(value = "/confirmpassword",method = RequestMethod.POST)
     public String confrimpassword(@RequestParam("eid") int eid,@RequestParam("ename")String name,
                                   @RequestParam("opass")String opass,@RequestParam("npass")String npass,Model model){
         int result=accountRelated.updateEmployeePassword(eid,name,opass,npass);
         model.addAttribute("result",result);
-        List<SalaryShow> salaryShows=moneyRelatedService.findSalaryOrderByDate(eid,20);
-        model.addAttribute("sas",salaryShows);
-        model.addAttribute("eid",eid);
-        return "main_yuanGong";
+        List<Department> departments = accountRelated.findDepartment(0, 20);
+        model.addAttribute("deps",departments);
+        return "main_manager";
     }
 
 
@@ -383,5 +325,14 @@ public class MisController {
         return "/error/dataException";
     }
 
+
+
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
 
 }

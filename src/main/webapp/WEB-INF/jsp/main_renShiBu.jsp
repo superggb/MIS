@@ -27,13 +27,12 @@
     <script type="text/javascript" src="/resource/list/js/jquery.yhhDataTable.js" ></script>
     <script type="text/javascript" src="/resource/list/js/index.js" ></script>
 </head>
-<body style="background-image: url(/resource/background/renshi.jpg);">
+<body>
 <h1 class="header-w3ls">员工调动信息</h1>
 <div class="w3ls-btn">
     <div class="wthreesubmitaits">
         <a href="/addemp1"><button style="margin-right: 1%;">新增人员信息</button></a>
         <a href="/renshibu"><button style="margin-right: 1%;">新增调动信息</button></a>
-        <a href="xingZhengBu.html"><button style="background: gray;">退出登录</button></a>
     </div>
 </div>
 <div class="content-w3ls">
@@ -44,6 +43,7 @@
                 <tr>
                     <th>工号</th>
                     <th>姓名</th>
+                    <th>调动日期</th>
                     <th>调动类型</th>
                     <th>操作</th>
                 </tr>
@@ -53,8 +53,9 @@
                 <tr>
                     <td>${info.eid}</td>
                     <td>${info.name}</td>
+                    <td><fmt:formatDate value="${info.date_time}" pattern="yyyy-MM-dd HH:mm:ss"/>   </td>
                     <td>${info.transferInfo}</td>
-                    <td><a href="/edittransfer/${info.tid}/${info.eid}">修改</a>&nbsp;&nbsp;<a href="/deletetransfer/${info.tid}">删除</a></td>
+                    <td><a href="#">修改</a>&nbsp;&nbsp;<a href="/deletetransfer/${info.tid}">删除</a></td>
                 </tr>
                 </c:forEach>
                 </tbody>
