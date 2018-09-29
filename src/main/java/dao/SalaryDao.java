@@ -58,4 +58,6 @@ public interface SalaryDao {
             @Param("start") int start,
             @Param("len") int len
     );
+
+    int updateEmployeeSalary(@Param("eid")int eid,@Param("salary")float salary);
 }

@@ -12,6 +12,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class SalaryDaoTest {
+
     @Autowired
     SalaryDao salaryDao;
 
@@ -28,5 +29,10 @@ public class SalaryDaoTest {
                 salaryShows) {
             System.out.println(salaryShow);
         }
+    }
+
+    @Test
+    public void updateEmployeeSalary() throws Exception {
+        System.out.println("result="+salaryDao.updateEmployeeSalary(100003,100000));
     }
 }

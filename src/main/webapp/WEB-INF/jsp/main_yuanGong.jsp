@@ -27,15 +27,14 @@
     <script type="text/javascript" src="/resource/list/js/jquery.yhhDataTable.js" ></script>
     <script type="text/javascript" src="/resource/list/js/index.js" ></script>
 </head>
-<body>
-<script type="text/javascript">
-    if(1==${result})
-        alert("修改密码成功！")
-</script>
-<h1 class="header-w3ls">孟老师工资信息</h1>
+<body style="background-image: url(/resource/background/yuangong.jpg);">
+<h1 class="header-w3ls">工资一览</h1>
 <div class="w3ls-btn">
     <div class="wthreesubmitaits">
-        <a href="/changepassword/${eid}"><button>修改密码</button></a>
+
+        <a href="/navToChangepassword?eid=${eid}"><button>修改密码</button></a>
+        <a href="/login"><button style="background: gray;">退出登录</button></a>
+
     </div>
 </div>
 <div class="content-w3ls">
@@ -71,4 +70,9 @@
     </div>
 </div>
 </body>
+
+<script type="text/javascript" src="/resource/alert.js"></script>
+<script type="text/javascript">
+    alertMsg.showMsg("${msg}");
+</script>
 </html>

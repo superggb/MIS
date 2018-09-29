@@ -274,6 +274,7 @@ label.rating {
     background: #16b6ce;
 }
 .wthreesubmitaits button {
+    width: 160px;
     padding: 10px 30px;
     font-size: 15px;
     color: #fff;

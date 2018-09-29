@@ -65,5 +65,9 @@ public class MoneyRelatedServiceImpl implements MoneyRelatedService {
         return salaryDao.findSalaryOrderByDate(start, len);
     }
 
+    @Override
+    public int updateSalaryByEid(int eid,float salary){
+        return salaryDao.updateEmployeeSalary(eid,salary);
+    }
 
 }

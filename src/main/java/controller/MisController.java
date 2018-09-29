@@ -67,7 +67,7 @@ public class MisController {
         if(way==0){
             Employee employee=accountRelated.loginEmployee(username,password);
             if(employee==null){
-                model.addAttribute("result",0);
+                model.addAttribute("msg","密码错误或账号不存在");
                 return "login";
             }
             List<SalaryShow> salaryShows=moneyRelatedService.findSalaryOrderByDate(employee.getEid(),20);
@@ -78,7 +78,7 @@ public class MisController {
         if(way==1){
             Department department=accountRelated.loginDepartment(username,password);
             if(department==null){
-                model.addAttribute("result",0);
+                model.addAttribute("msg","密码错误或账号不存在");
                 return "login";
             }
             if(department.getName().equals("管理员")) {
@@ -117,11 +117,13 @@ public class MisController {
 
     @RequestMapping(value = "/addemp",method = RequestMethod.POST)
     public String addemployee(@RequestParam("ename") String ename,
-                              @RequestParam("password") String password,@RequestParam("dpnum")int dpnum,Model model){
+                              @RequestParam("password") String password,@RequestParam("salary")float salary,
+                              @RequestParam("dpnum")int dpnum,Model model){
         int did=depId.getDepId(dpnum);
+        float _salary=salary;
         System.out.println("ename="+ename+",password"+password+"dpnum:"+dpnum+"     did="+did);
-        float salary=5000;
-        accountRelated.register(ename,password,salary,did);
+        accountRelated.register(ename,password,_salary,did);
+        model.addAttribute("msg","添加员工成功");
         List<TransferInfo> transferInfos=accountRelated.findTransferInfoOrderByDate(0,50);
         model.addAttribute("Infos",transferInfos);
         return "main_renShiBu";
@@ -161,12 +163,61 @@ public class MisController {
             //新员工：旧部门采用-1，新部门为传入参数
             accountRelated.addTransferRecord(eid,-1,newDep);
         }
+        model.addAttribute("msg","操作成功");
         List<TransferInfo> transferInfos=accountRelated.findTransferInfoOrderByDate(0,50);
         model.addAttribute("Infos",transferInfos);
         return "main_renShiBu";
 
     }
 
+
+    /**
+     * 修改员工调度信息
+     * @param tid
+     * @param eid
+     * @param model
+     * @return
+     * DONE
+     */
+    @RequestMapping(value = "/edittransfer/{tid}/{eid}",method = RequestMethod.GET)
+    public String edittransfer(@PathVariable("tid") int tid,@PathVariable("eid")int eid, Model model){
+        model.addAttribute("tid",tid);
+        model.addAttribute("eid",eid);
+        return "renShiBu2";
+    }
+    @RequestMapping(value = "/{tid}/confirmtransfer",method = RequestMethod.GET)
+    public String confrimtransfer(@PathVariable("tid")int tid, @RequestParam("eid") int eid, @RequestParam("way")int way,
+                                  @RequestParam(value = "odep",required = false)Integer odep,
+                                  @RequestParam(value = "ndep",required = false) Integer ndep,
+                                  Model model){
+        System.out.println("eid="+eid+"             way="+way+"               odep"+odep+"               ndep"+ndep);
+        int oldDep=depId.getDepId(odep);
+        int newDep=depId.getDepId(ndep);
+        if(way==0){
+            //调动：新旧部门采用传入参数
+        }
+        if(way==1){
+            //辞退：旧部门采用传入参数，新部门为-1
+            newDep=-1;
+        }
+        if(way==2){
+            //退休：旧部门采用传入参数，新部门为0
+            newDep=0;
+        }
+        if(way==3){
+            //新员工：旧部门采用-1，新部门为传入参数
+            oldDep=-1;
+        }
+        int result=accountRelated.updateTransfer(tid,eid,oldDep,newDep);
+        if(result==1){
+            model.addAttribute("msg","操作成功");
+        }else {
+            model.addAttribute("msg","操作失败");
+        }
+        List<TransferInfo> transferInfos=accountRelated.findTransferInfoOrderByDate(0,50);
+        model.addAttribute("Infos",transferInfos);
+        return "main_renShiBu";
+    }
 
     /**
      * 人事部删除调度信息
@@ -180,6 +231,7 @@ public class MisController {
         accountRelated.deleteTransferRecordById(tid);
         List<TransferInfo> transferInfos=accountRelated.findTransferInfoOrderByDate(0,50);
         model.addAttribute("Infos",transferInfos);
+        model.addAttribute("msg","删除成功");
         return "main_renShiBu";
     }
 
@@ -201,7 +253,11 @@ public class MisController {
         int result=addabsencerecord(eid,days,atype,start,reason);
         List<AbsenceInfo> absences = absenceService.selectAbsenceRecords(0, 50);
         model.addAttribute("abs", absences);
-        model.addAttribute("result",result);
+        if(result==1){
+            model.addAttribute("msg","操作成功");
+        }else{
+            model.addAttribute("msg","操作失败");
+        }
         return "main_xingZhengBu";
     }
 
@@ -249,7 +305,11 @@ public class MisController {
         int result=addabsencerecord(eid,days,atype,start,reason);
         List<AbsenceInfo> absences = absenceService.selectAbsenceRecords(0, 50);
         model.addAttribute("abs", absences);
-        model.addAttribute("result",result);
+        if(result==1){
+            model.addAttribute("msg","操作成功");
+        }else {
+            model.addAttribute("msg","操作失败");
+        }
         return "main_xingZhengBu";
     }
 
@@ -262,7 +322,6 @@ public class MisController {
      */
     @RequestMapping(value="/delabs/{aid}",method = RequestMethod.GET)
     public String deleteabsencerecord(@PathVariable("aid") int aid,Model model){
-        //TODO:根据eid删除单条缺勤记录，不应该是eid，而是aid DONE
         System.out.println("aid="+aid);
         absenceService.deleteAbsenceByAid(aid);
         List<AbsenceInfo> absences = absenceService.selectAbsenceRecords(0,50);
@@ -299,25 +358,106 @@ public class MisController {
         System.out.println("dname="+dname+"    did="+did+"   opass="+opass+"    npass="+npass);
         int result=accountRelated.updateDepartment(did,dname,npass);
         model.addAttribute("result",result);
-        List<Department> departments = accountRelated.findDepartment(0, 20);
-        model.addAttribute("deps",departments);
-        return "main_manager";
+        List<SalaryShow> salaryShowList=moneyRelatedService.findSalaryOrderByDate(0,50);
+        model.addAttribute("salaryList",salaryShowList);
+        if(result==1){
+            model.addAttribute("msg","操作成功");
+        }else {
+            model.addAttribute("msg","操作失败");
+        }
+        return "main_caiWuBu";
     }
 
 
+    /**
+     * 员工修改密码
+     * @param eid
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/navToChangepassword",method = RequestMethod.GET)
+    public String navToChangepassword(int eid,Model model){
+        Employee employee=accountRelated.findEmployeeByEid(eid);
+        model.addAttribute("emp",employee);
+        return "yuanGong1";
 
+    }
 
-
-
-    @RequestMapping(value = "/confirmpassword",method = RequestMethod.POST)
+    @RequestMapping(value = "/confirmepassword",method = RequestMethod.POST)
     public String confrimpassword(@RequestParam("eid") int eid,@RequestParam("ename")String name,
                                   @RequestParam("opass")String opass,@RequestParam("npass")String npass,Model model){
         int result=accountRelated.updateEmployeePassword(eid,name,opass,npass);
-        model.addAttribute("result",result);
-        List<Department> departments = accountRelated.findDepartment(0, 20);
-        model.addAttribute("deps",departments);
-        return "main_manager";
+        if(result==1){
+            model.addAttribute("msg","修改密码成功！");
+        }else {
+            model.addAttribute("msg","修改密码失败，请联系管理员或重试！");
+        }
+        List<SalaryShow> salaryShows=moneyRelatedService.findSalaryOrderByDate(eid,20);
+        model.addAttribute("sas",salaryShows);
+        model.addAttribute("eid",eid);
+        return "main_yuanGong";
     }
+
+    /**
+     * 财务部：根据员工号修改员工的基本工资 DONE
+     * @param eid
+     * @param salary
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/editSalary",method = RequestMethod.GET)
+    public String editSalary(int eid,float salary,Model model){
+        int result=moneyRelatedService.updateSalaryByEid(eid,salary);
+        String msg;
+        if(result==1) {
+            msg = "修改工资成功";
+        }else{
+            msg="修改失败";
+        }
+        model.addAttribute("msg",msg);
+        List<SalaryShow> salaryShowList=moneyRelatedService.findSalaryOrderByDate(0,50);
+        model.addAttribute("salaryList",salaryShowList);
+        return "main_caiWuBu";
+    }
+
+    @RequestMapping(value = "/navToCaiWuBu1",method = RequestMethod.GET)
+    public String navToCaiWuBu1(){
+        return "caiWuBu1";
+    }
+
+    /**
+     * 财务部：修改单条工资记录 DONE
+     * @param eid
+     * @param salary
+     * @param bonus
+     * @param reason
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/editSingleSalary",method = RequestMethod.POST)
+    public String editSingleSalary(int eid,float salary,float bonus,String reason,Model model){
+        System.out.println("eid="+eid+"     salary="+salary+"    bonus"+bonus+"    reason"+reason);
+        int result=moneyRelatedService.updateSalary(eid,salary,bonus,reason);
+        String msg;
+        if(result==1){
+            msg="更改工资成功！";
+        }else{
+            msg="更改失败！";
+        }
+        model.addAttribute("msg",msg);
+        List<SalaryShow> salaryShowList=moneyRelatedService.findSalaryOrderByDate(0,50);
+        model.addAttribute("salaryList",salaryShowList);
+        return "main_caiWuBu";
+    }
+
+    @RequestMapping(value = "navToCaiWuBu2",method = RequestMethod.GET)
+    public String navToCaiWuBu2(int eid,float salary,float bonus,Model model){
+        model.addAttribute("eid",eid);
+        model.addAttribute("salary",salary);
+        model.addAttribute("bonus",bonus);
+        return "caiWuBu2";
+    }
+
 
 
     @RequestMapping(value = "/dataException")
@@ -328,11 +468,11 @@ public class MisController {
 
 
 
-    @InitBinder
+   /* @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
+    }*/
 
 }

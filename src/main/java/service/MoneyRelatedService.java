@@ -25,4 +25,6 @@ public interface MoneyRelatedService {
 
     @Transactional
     List<SalaryShow> findSalaryOrderByDate(int start, int len);
+
+    int updateSalaryByEid(int eid,float salary);
 }

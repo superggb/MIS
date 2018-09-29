@@ -20,7 +20,7 @@
     <!-- /font files -->
     <link href="/resource/form/css/style.css" rel='stylesheet' type='text/css' media="all" />
 </head>
-<body>
+<body style="background-image: url(/resource/background/manager.jpg);">
 <h1 class="header-w3ls">部门密码修改</h1>
 <div class="content-w3ls">
     <div class="form-w3ls">

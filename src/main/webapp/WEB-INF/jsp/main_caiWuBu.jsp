@@ -27,11 +27,12 @@
     <script type="text/javascript" src="/resource/list/js/jquery.yhhDataTable.js" ></script>
     <script type="text/javascript" src="/resource/list/js/index.js" ></script>
 </head>
-<body>
+<body style="background-image: url(/resource/background/caiwu.jpg);">
 <h1 class="header-w3ls">员工工资信息</h1>
 <div class="w3ls-btn">
     <div class="wthreesubmitaits">
-        <a href="xingZhengBu.html"><button>新增缺勤信息</button></a>
+        <a href="/navToCaiWuBu1"><button>修改员工基本工资</button></a>
+        <a href="/login"><button style="background: gray;">退出登录</button></a>
     </div>
 </div>
 <div class="content-w3ls">
@@ -60,7 +61,7 @@
                     <td>${sa.fine}</td>
                     <td>${sa.tax}</td>
                     <td>${sa.realsalary}</td>
-                    <td><a href="caiWuBu2.html">修改</a></td>
+                    <td><a href="/navToCaiWuBu2?eid=${sa.eid}&salary=${sa.salary}&bonus=${sa.bonus}">修改</a></td>
                 </tr>
                 </c:forEach>
                 </tbody>
@@ -69,4 +70,8 @@
     </div>
 </div>
 </body>
+<script type="text/javascript" src="/resource/alert.js"></script>
+<script type="text/javascript">
+    alertMsg.showMsg("${msg}");
+</script>
 </html>
